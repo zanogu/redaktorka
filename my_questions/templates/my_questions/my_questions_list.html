@@ -1,0 +1,25 @@
+{% extends "my_questions/base.html"%}
+{% load static %}
+
+{% block title %}
+    Добавить вопрос
+{% endblock %}
+
+{% block content %}
+    {% for q in quests %}
+        <div>
+            {% if q.razdatka %}
+                <div><img src="{{q.razdatka.url}}"></div>
+            {% endif %}
+            <a href="{% url 'my_questions:question' question_id=q.question.id %}">
+                <div>{{q.text}}</div>
+                <div>{{q.answer}}</div>
+            </a>
+            <form action="{% url 'my_questions:delete_question' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden"  name="question_id" value="{{q.id}}">
+                <button type="submit" name="action" value="approve"> Удалить </button>
+            </form>
+        </div>
+    {% endfor %}
+{% endblock %}

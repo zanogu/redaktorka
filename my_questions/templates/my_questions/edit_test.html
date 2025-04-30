@@ -1,0 +1,76 @@
+{% extends "my_questions/base.html"%}
+{% load static %}
+
+{% block title %}
+Добавить тест
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-6">
+      <form enctype="multipart/form-data" method="post" action="{% url 'my_questions:edit_test_backend' %}">
+  {% csrf_token %}
+  <div>
+    <h4>Описание теста</h4>
+    <div>
+      <input type="text" id="test-name" name="test-name">
+    </div>
+    <div>
+      <textarea id="test-description" name="test-description" rows="5" cols="33"></textarea>
+    </div>
+  </div>
+
+  <div>
+    <div id="question-test-basket" class="connectedSortableQuestions connectedSortable">
+      {% for q in quests_tested %}
+        {% include 'my_questions/parts/question-widget.html' with q=q %}
+      {% endfor %}
+    </div>
+  </div>
+  <div>
+    <div id="tester-test-basket" class="connectedSortableTesters connectedSortable">
+      {% for t in testers_tested %}
+        {% include 'my_questions/parts/tester-widget.html' with t=t %}
+      {% endfor %}
+    </div>
+  </div>
+  <input type="submit" value="Submit">
+
+</form>
+    </div>
+    <div class="col-6">
+      <div id="question-basket" class="connectedSortableQuestions connectedSortable">
+      {% for q in quests %}
+        {% include 'my_questions/parts/question-widget.html' with q=q %}
+      {% endfor %}
+    </div>
+      <div id="tester-basket" class="connectedSortableTesters connectedSortable">
+        {% for t in testers %}
+            {% include 'my_questions/parts/tester-widget.html' with t=t %}
+          {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $( function() {
+    $( "#question-test-basket, #question-basket" ).sortable({
+      connectWith: ".connectedSortableQuestions"
+    }).disableSelection();
+
+    $( "#tester-test-basket, #tester-basket" ).sortable({
+      connectWith: ".connectedSortableTesters"
+    }).disableSelection();
+
+    $( ".accordion" ).accordion({
+      collapsible: true,
+      active:false
+    });
+
+  } );
+</script>
+
+
+{% endblock %}

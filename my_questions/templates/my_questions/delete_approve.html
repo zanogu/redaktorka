@@ -1,0 +1,23 @@
+{% extends "my_questions/base.html"%}
+{% load static %}
+
+{% block title %}
+    Добавить вопрос
+{% endblock %}
+
+{% block content %}
+Удалить этот вопрос?
+<div>
+    {{question_to_delete.text}}
+</div>
+<div>
+    {{question_to_delete.answer}}
+</div>
+<form action="{% url 'my_questions:delete_question' %}" method="post">
+    {% csrf_token %}
+    <input type="hidden"  name="question_id" value="{{question_to_delete.id}}">
+    <button type="submit" name="action" value="keep">  НЕТ, всё-таки </button>
+    <button type="submit" name="action" value="delete"> УДАЛИТЬ </button>
+</form>
+
+{% endblock %}

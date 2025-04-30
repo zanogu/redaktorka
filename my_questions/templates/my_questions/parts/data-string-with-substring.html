@@ -1,0 +1,14 @@
+
+{% with val=q_recs|length %}
+  {% include "rating/parts/data-string.html" with name=name value=val %}
+
+    {% if val > 0 %}
+    <div class="substring w-100 text-end">
+      {% for v in q_recs%}
+        {{v.index}}
+      {% endfor %}
+    </div>
+    {% endif %}
+
+
+{% endwith %}

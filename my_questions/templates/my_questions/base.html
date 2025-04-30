@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+{% load static %}
+{% load my_questions_extras %}
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Визуализация ЧГК{% endblock %}</title>
+
+    {% include "my_questions/parts/statics.html" %}
+
+    {% block head_scripts %}
+    {% endblock %}
+
+</head>
+<body>
+    <div class="site-envelope mx-sm-2 mx-md-4">
+        {% block content %}
+        {% endblock %}
+
+        <footer>
+            <p>&copy; 2025 Визуализации турниров. All rights reserved.</p>
+        </footer>
+    </div>
+
+</body>
+</html>

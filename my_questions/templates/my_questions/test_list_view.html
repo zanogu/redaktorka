@@ -1,0 +1,43 @@
+{% extends "my_questions/base.html"%}
+{% load static %}
+{% load my_questions_extras %}
+
+{% block title %}
+Тестеры
+{% endblock %}
+
+{% block content %}
+<h2>Тесты</h2>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-6">
+      {% for test in tests %}
+        <div data-test="{{test|model_to_dict_filter}}" class="list-t-block">
+          <div class="list-t-name">
+            {{test.name}}
+          </div>
+          <div class="list-t-description">
+            {{test.description}}
+          </div>
+          <div class="list-t-date">
+            {{test.date}}
+          </div>
+          <div class="list-t-testers">
+            {% for tr in test.testers.all %}
+            <div> {{tr.name_surname}}</div>
+            {% endfor %}
+          </div>
+          <form action="{% url 'my_questions:test_delete_backend' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden"  name="test_id" value="{{test.id}}">
+                <button type="submit" name="action" value="approve"> Удалить </button>
+            </form>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+
+
+{% endblock %}

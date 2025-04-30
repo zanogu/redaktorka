@@ -1,0 +1,28 @@
+{% extends "my_questions/base.html"%}
+{% load static %}
+
+{% block title %}
+    Действительно удалить тест?
+{% endblock %}
+
+{% block content %}
+Удалить этот тест?
+<div>
+    {{test_to_delete.name}}
+</div>
+<div>
+    {{test_to_delete.description}}
+</div>
+<div>
+    {% for tr in test.testers.all %}
+        <div> {{tr.name_surname}}</div>
+    {% endfor %}
+</div>
+<form action="{% url 'my_questions:test_delete_backend' %}" method="post">
+    {% csrf_token %}
+    <input type="hidden"  name="test_id" value="{{test_to_delete.id}}">
+    <button type="submit" name="action" value="keep">  НЕТ, всё-таки </button>
+    <button type="submit" name="action" value="delete"> УДАЛИТЬ </button>
+</form>
+
+{% endblock %}

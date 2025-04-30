@@ -1,0 +1,15 @@
+{% extends "my_questions/base.html"%}
+{% load static %}
+
+{% block title %}
+    Добавить вопрос
+{% endblock %}
+
+{% block content %}
+<form enctype="multipart/form-data"  method="post" action="{% url 'my_questions:add_question' %}" >
+    {% csrf_token %}
+    {{ add_question_form }}
+    <input type="submit" value="Submit">
+</form>
+
+{% endblock %}

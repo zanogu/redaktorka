@@ -1,0 +1,22 @@
+{% extends "my_questions/base.html"%}
+{% load static %}
+
+{% block title %}
+Вопрос номер {{my_question.id}}
+{% endblock %}
+
+{% block content %}
+{{version_set}}
+
+
+<form enctype="multipart/form-data" method="post" action="{% url 'my_questions:edit_question' %}">
+  {% csrf_token %}
+  <input type="hidden" id="question" name="question" value="{{my_question.id}}">
+
+    {{ question_form_set }}
+
+  <input type="submit" value="Submit">
+</form>
+
+
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends "my_questions/base.html"%}
+{% load static %}
+{% load my_questions_extras %}
+
+{% block title %}
+Тестеры
+{% endblock %}
+
+{% block content %}
+<h2>Тестеры</h2>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-6">
+      <div data-tester="{}">Новый Тестер</div>
+      {% for tester in testers %}
+        <div data-tester="{{tester|model_to_dict_filter}}">{{tester.name_surname}}</div>
+      {% endfor %}
+    </div>
+    <div class="col-6">
+      <form method="post" action="{% url 'my_questions:edit_tester_backend' %}">
+        {% csrf_token %}
+        <input type="hidden" name="id" id="id_id" value="">
+        {{tester_form}}
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+$(document).ready(function() {
+  $('[data-tester]').on('click', function() {
+    // Get the JSON string and parse it
+    const testerData = $(this).attr('data-tester');
+    const parsedData = JSON.parse(testerData);
+
+    // Fill in the form fields
+    $('#id_id').val(parsedData.id);
+    $('#id_name').val(parsedData.name);
+    $('#id_surname').val(parsedData.surname);
+    $('#id_patronymic').val(parsedData.patronymic || '');
+    $('#id_rating_id').val(parsedData.rating_id || '');
+  });
+});
+</script>
+
+{% endblock %}

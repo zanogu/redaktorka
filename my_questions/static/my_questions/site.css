@@ -1,0 +1,331 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans+Narrow:wght@400;700&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+.connectedSortable{
+    min-height: 40px;
+    min-width: 100px;
+    background: grey;
+    margin-top: 100px;
+    margin-bottom: 100px; 
+}
+
+.list-t-block{
+  border: 1px dotted black;
+  margin: 1rem;
+}
+
+body {
+  font-size: 16px;
+  font-family: "PT Sans", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+h1, h2 {
+  font-family: "PT Sans", sans-serif;
+  /*font-family: "PT Serif", sans-serif;*/
+  font-weight: 700;
+  font-style: normal;
+}
+
+h2{
+  font-size: 4rem;
+  line-height: 1;
+}
+
+h3{
+  font-size: 2rem;
+}
+
+h5{
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+a{
+  color: black;
+  background: none;
+  border: 0px;
+  padding: 0;
+  text-decoration:underline;
+  text-decoration-style: dotted;
+
+}
+
+.text-envelope {
+
+}
+
+@media only screen and (min-width: 768px) {
+  .text-envelope {
+    max-width: 72vw;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  .text-envelope {
+    max-width: 840px;
+  }
+}
+
+.medalist-place{
+  border: solid black 1px;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  /*font-size: 1.125rem;*/
+  font-family: "PT Sans Narrow", sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.05em;
+}
+
+.medalist-name{
+  font-size: 1rem;
+  font-weight: 700;
+  
+}
+
+.medalist-score{
+  float: inline-end;
+}
+
+.medalist-sub{
+  min-width: 100%;
+  line-height: 0.8rem;
+  font-size: 0.75rem;
+}
+
+.leading-dots{
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.substring{
+  font-size: 0.75rem;
+}
+
+.number-snippet .number-in-snippet{
+  font-family: "PT Sans Narrow", sans-serif;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.number-snippet .label-in-snippet{
+  text-wrap-style: pretty;
+}
+
+.standings-controls input{
+  border: 0px black dotted;
+  border-bottom-width: 1.5px;
+}
+
+.standings-controls button{
+  border: 1px black solid;
+  background-color: white;
+  padding-top: 0.3rem;
+}
+
+
+.standings-controls button:hover{
+  background-color: black;
+  color: white;
+}
+
+.buttons{
+  margin: 0;
+  padding: 0;
+}
+
+.btn{
+  color: black;
+  background: none;
+  border: 0px;
+  padding: 0;
+  text-decoration:underline;
+  text-decoration-style: dotted;
+}
+
+.btn:hover{
+  color: black;
+  background: none;
+  
+}
+
+.modal-content, .modal-header{
+  border-radius: 0;
+}
+
+.modal-header{
+  border-bottom-color: black;
+}
+
+
+
+svg {
+    font-family: "PT Sans Narrow", sans-serif;
+    font-size: 12px;
+}
+
+svg .tooltip{
+  font-family: "PT Sans Narrow", sans-serif;
+  font-size: 12px;
+}
+
+svg .tooltip-team{
+  font-weight: 700;
+}
+
+#histogramcont{
+  margin-left: 0;
+}
+
+ .tick{
+  font-family: "PT Sans Narrow", sans-serif;
+  font-size: 12px;
+}
+
+.second-histogram-stroke{
+  stroke: black;
+  stroke-dasharray: 1, 1;
+}
+
+
+/* ------------- Datatables -----------------*/
+
+#full-results-table{
+  
+  font-family: "PT Sans Narrow", sans-serif;
+
+  
+}
+
+#full-results-table th{
+  font-size: 0.75rem;
+ 
+}
+
+#full-results-table thead, 
+#full-results-table tbody, 
+#full-results-table tfoot, 
+#full-results-table tr, 
+#full-results-table td, 
+#full-results-table th {
+  border-color: black;
+  border-style: dotted;
+
+}
+
+#full-results-table .no-border-left{
+  border-left-width: 0;
+  padding-left: 0;
+}
+
+#full-results-table .no-border-right{
+  border-right-width: 0;
+  padding-right: 0;
+}
+
+#full-results-table .no-border{
+  border-width: 0;
+}
+
+#full-results-table *[data-click-group]{
+  cursor: pointer;
+}
+
+#full-results-table_wrapper .dt-paging{
+  margin-top: 2rem;
+}
+
+
+
+
+#full-results-table .plus{
+
+  font-family: "PT Sans", sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  
+}
+
+
+
+#full-results-table_wrapper .form-select {
+  border-radius: 0;
+  border: 0px;
+  border-bottom: 1px black dotted;
+  
+}
+
+
+.page-link {
+  color: black;
+  border-radius: 0 !important;
+}
+
+.page-link:hover {
+  color: black !important;
+  
+}
+.page-link.active, .active > .page-link {
+  background-color: black;
+  border-color: black;
+}
+
+
+footer{
+  margin-top: 4rem;
+  font-size: 0.75rem;
+}
+/*
+
+.pt-sans-regular {
+  font-family: "PT Sans", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.pt-sans-bold {
+  font-family: "PT Sans", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.pt-sans-regular-italic {
+  font-family: "PT Sans", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.pt-sans-bold-italic {
+  font-family: "PT Sans", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.pt-serif-regular {
+  font-family: "PT Serif", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.pt-serif-bold {
+  font-family: "PT Serif", serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.pt-serif-regular-italic {
+  font-family: "PT Serif", serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.pt-serif-bold-italic {
+  font-family: "PT Serif", serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+
+*/

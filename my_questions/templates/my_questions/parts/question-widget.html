@@ -1,0 +1,21 @@
+<div data-question="{{q.question.id}}" class="question-widget">
+  <div>{{q.question.id}}</div>
+  <div>{{q.preview.text}}</div>
+  <div>{{q.preview.answer}}</div>
+  <input type="hidden" id="question" name="question" value="{{q.question.id}}">
+
+  <div class="accordion" data-dialog="{{q.question.id}}" title="Basic dialog">
+    <h3>Версии</h3>
+    <div>
+      {% for v in q.question.version_set.all %}
+      <div>
+        <input type="checkbox" id="version-{{q.question.id}}-{{v.id}}" name="version"
+               value="{{v.id}}">
+        <div>{{v.text}}</div>
+        <div>{{v.answer}}</div>
+        <div>{{v.created}}</div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>

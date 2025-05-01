@@ -11,6 +11,9 @@
       <div>
         <input type="checkbox" id="version-{{q.question.id}}-{{v.id}}" name="version"
                value="{{v.id}}">
+        {% if is_debug %}
+          <div>{{v.id}}</div>
+        {% endif %}
         <div>{{v.text}}</div>
         <div>{{v.answer}}</div>
         <div>{{v.created}}</div>

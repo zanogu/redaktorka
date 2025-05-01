@@ -12,6 +12,8 @@ from django.forms.models import model_to_dict
 from django.forms import modelformset_factory
 from django.db import transaction
 
+from .utils import Renderer
+
 
 def index(request):
     return HttpResponse("Привет юзернейм, ты в редакторке")
@@ -60,6 +62,7 @@ def login_page(request):
 # TODO rewrite
 
 # Define a view function for the registration page
+
 def register_page(request):
     # Check if the HTTP request method is POST (form submission)
     if request.method == 'POST':
@@ -193,7 +196,7 @@ def edit_question(request):
 def test_list_view(request):
     tests = Test.objects.filter(user=request.user)
     for t in tests:
-        print(t.testers.all())
+        print(t.version.all())
     return render(request,
                   "my_questions/test_list_view.html",
                   {"tests": tests})
@@ -245,7 +248,7 @@ def edit_test_backend(request):
         request_post = dict(request.POST)
         print(request_post)
 
-        with transaction.atomic():
+        with (transaction.atomic()):
             test = Test(name = request.POST.get("test-name"),
                          description = request.POST.get("test-description"),
                          date = timezone.now().date(),
@@ -253,21 +256,48 @@ def edit_test_backend(request):
             test.save()
             test.user.add(request.user)
 
+            i = 0
+            for q_id in request.POST.getlist("question"):
+                q = Question.objects.get(pk=q_id, user=request.user)
+                if q is not None:
+                    qt = TestQuestion(
+                        test = test,
+                        question = q,
+                        order = i
+                    )
+                    qt.save()
+                    i += 1
+
             a = []
-            for q in Question.objects.filter(user=request.user):
+            for q in Question.objects.filter(
+                    user=request.user,
+                    pk__in=request.POST.getlist("question")
+            ):
                 a += q.version_set.filter(pk__in=request.POST.getlist("version"))
+
             test.version.set(a)
 
-            for t in Tester.objects.filter(user=request.user, pk__in=request.POST.getlist("tester")):
+            for t in Tester.objects.filter(
+                    user=request.user,
+                    pk__in=request.POST.getlist("tester")
+            ):
                 t.test.add(test)
 
     return HttpResponse(request.POST)
 
 @login_required
-def show_test(request):
-    if request.method == 'POST':
-        print(request.POST)
-        return HttpResponse(request.POST)
+def show_test_view(request, test_id: int):
+    test = get_object_or_404(Test, pk=test_id)
+    test_dict = Renderer.test_to_list(test)
+
+    return render(
+       request,
+       "my_questions/show_test_view.html",
+       {
+           "test": test,
+           "test_dict": test_dict
+       }
+    )
 
 # TESTERS
 

@@ -22,16 +22,33 @@ class Version(models.Model):
     sources = EncryptedTextField(blank=True)
     created = models.DateTimeField()
 
+    class Meta:
+        ordering = ["-created"]
+
 
 class Test(models.Model):
     date = models.DateField(blank=True)
     name = models.CharField(blank=True)
     description = models.TextField(blank=True)
     version = models.ManyToManyField(Version)
+    question = models.ManyToManyField(Question, through="TestQuestion")
     user = models.ManyToManyField(User)
 
     def __str__(self):
         return str(model_to_dict(self))
+
+class TestQuestion(models.Model):
+    test = models.ForeignKey(Test, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    order = models.IntegerField()
+
+    class Meta:
+        ordering = ["order"]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["test", "question"], name="unique_test_question"
+            )
+        ]
 
 
 

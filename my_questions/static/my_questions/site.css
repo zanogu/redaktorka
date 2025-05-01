@@ -13,6 +13,18 @@
   margin: 1rem;
 }
 
+.test-output-q{
+  margin-bottom: 1rem;
+}
+
+.razdatka{
+  max-width: 350px;
+}
+
+.test-output-q-subheader{
+  font-weight: bold;
+}
+
 body {
   font-size: 16px;
   font-family: "PT Sans", sans-serif;

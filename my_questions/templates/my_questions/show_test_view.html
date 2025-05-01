@@ -1,0 +1,79 @@
+{% extends "my_questions/base.html"%}
+{% load static %}
+{% load my_questions_extras %}
+
+{% block title %}
+Тест
+{% endblock %}
+
+{% block content %}
+<h2>Тест {{test.name}}</h2>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-6">
+      {% for q in test_dict %}
+      <div class="test-output-q">
+        <h4 class="test-output-q-header">
+          {{question_part_names.question}} {{ forloop.counter }}
+        </h4>
+        {% if q.razdatka.0 != "" %}
+          <p>
+            <span class="test-output-q-subheader"> {{question_part_names.razdatka}}: </span>
+            <br />
+            {% for r in q.razdatka %}
+              {% if r != "" %}
+                <img src="{{r.url}}" class="razdatka">
+              {% endif %}
+            {% endfor %}
+          </p>
+        {% endif %}
+        <p>
+          <span class="test-output-q-subheader"> {{question_part_names.text}}: </span>
+          {% for t in q.text %}
+            {{t}}
+          {% endfor %}
+        </p>
+        <p>
+          <span class="test-output-q-subheader"> {{question_part_names.answer}}: </span>
+          {% for t in q.answer %}
+            {{t}}
+          {% endfor %}
+        </p>
+        <p>
+          <span class="test-output-q-subheader"> {{question_part_names.also_answer}}: </span>
+          {% for t in q.also_answer %}
+            {{t}}
+          {% endfor %}
+        </p>
+        <p>
+          <span class="test-output-q-subheader"> {{question_part_names.not_answer}}: </span>
+          {% for t in q.not_answer %}
+            {{t}}
+          {% endfor %}
+        </p>
+        <p>
+          <span class="test-output-q-subheader"> {{question_part_names.commentary}}: </span>
+          {% for t in q.commentary %}
+            {{t}}
+          {% endfor %}
+        </p>
+        <p>
+          <span class="test-output-q-subheader"> {{question_part_names.sources}}: </span>
+          <br />
+          {% for t in q.sources %}
+            {{t}}
+          {% endfor %}
+        </p>
+
+      </div>
+
+      {% endfor %}
+
+
+    </div>
+  </div>
+</div>
+
+
+
+{% endblock %}

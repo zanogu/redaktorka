@@ -27,6 +27,7 @@ SECRET_KEY = 'django-insecure-92-=g=#=3x+o!$_lr3p%v^g4-$%5#d-(t%qx4cm57%89t634wn
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+
 ALLOWED_HOSTS = []
 
 
@@ -65,6 +66,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'my_questions.templatetags.context_processors.is_debug',
+                'my_questions.templatetags.context_processors.question_part_names'
             ],
         },
     },

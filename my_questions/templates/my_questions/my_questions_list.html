@@ -9,7 +9,7 @@
     {% for q in quests %}
         <div>
             {% if q.razdatka %}
-                <div><img src="{{q.razdatka.url}}"></div>
+                <div><img src="{{q.razdatka.url}}" class="razdatka"></div>
             {% endif %}
             <a href="{% url 'my_questions:question' question_id=q.question.id %}">
                 <div>{{q.text}}</div>

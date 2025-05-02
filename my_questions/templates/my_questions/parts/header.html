@@ -1,0 +1,54 @@
+<header>
+ <nav class="navbar sticky-top navbar-dark border-body bg-dark" data-bs-theme="dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Редакторка</a>
+    <div class="">
+      <div class="d-inline-block me-4">
+        <div class="d-inline-block navbar-text me-2"> Вы залогинены как <strong>{{ request.user.username }}</strong></div>
+        <form class="d-inline-block" method="post" action="{% url 'my_questions:logout_me' %}">
+          {% csrf_token %}
+          <input class="btn btn-outline-light" type="submit" value="logout">
+        </form>
+      </div>
+      <button class="navbar-toggler d-inline-block" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+
+    <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel"></h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Закрыть"></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+          {% for item in items %}
+            <li class="nav-item">
+              <a href="{{ item.url }}"
+                 class="nav-link {% if item.active %} active {% endif %} {% if item.class %}{{ item.class }}{% endif %}"
+              >
+                {{ item.title }}
+              </a>
+              {% if item.items %}
+                <ul>
+                  {% for subitem in item.items %}
+                    <li>
+                      <a href="{{ subitem.url }}"{% if subitem.active %} class="active"{% endif %}{% if item.foo %} data-foo="{{ item.foo }}"{% endif %}>
+                        {{ subitem.title }}
+                      </a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+        <form method="post" action="{% url 'my_questions:logout_me' %}">
+          {% csrf_token %}
+          <input type="submit" value="logout">
+        </form>
+      </div>
+    </div>
+  </div>
+</nav>
+</header>

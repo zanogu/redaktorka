@@ -1,5 +1,6 @@
 from django import template
 import json
+from bs4 import BeautifulSoup
 
 from django.template.context_processors import request
 
@@ -23,5 +24,13 @@ def elochki(value):
             value[i] = "»"
             opened = False
     return "".join(value)
+
+@register.filter
+def extract_text_from_html(value):
+    soup = BeautifulSoup(value, 'html.parser')
+    for data in soup(['style', 'script']):
+        data.decompose()
+    return " ".join(soup.stripped_strings)
+
 
 

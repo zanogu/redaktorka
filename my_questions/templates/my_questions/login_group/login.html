@@ -10,7 +10,7 @@
     <div class="container mt-5">
         <!-- Login form -->
         <form class="col-6 mx-auto card p-3 shadow-lg" method="post" enctype="multipart/form-data">
-            <h1 style="text-align: center;"><span style="color: green;">GeeksforGeeks</span></h1>
+            <h1 style="text-align: center;"><span style="color: green;">Вход в систему</span></h1>
 
             {% csrf_token %}  <!-- CSRF token for security -->
 
@@ -41,7 +41,7 @@
             </div>
 
             <!-- Link to registration page -->
-            <p>Don't have an account <a href="{% url 'my_questions:register' %}">Register</a> </p>
+            <p>Don't have an account <a href="{% url 'my_questions:register_page_view' %}">Register</a> </p>
 
             <!-- Submit button -->
             <button type="submit" class="btn btn-primary">Submit</button>

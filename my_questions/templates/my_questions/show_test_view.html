@@ -30,7 +30,7 @@
         <p>
           <span class="test-output-q-subheader"> {{question_part_names.text}}: </span>
           {% for t in q.text %}
-            {{t}}
+            {{t | safe}}
           {% endfor %}
         </p>
         <p>

@@ -23,17 +23,16 @@ def index(request):
 
 # Define a view function for the home page
 @login_required
-def home(request):
-    return render(request, 'my_questions/home.html',{"username": request.user })
-# TODO rewrite
+def home_backend(request):
+    return redirect("my_questions:questions_list_view")
 
 @login_required
-def logout_me(request):
+def logout_backend(request):
     logout(request)
-    return redirect('../login/')
+    return redirect('my_questions:login_view')
 
 # Define a view function for the login page
-def login_page(request):
+def login_view(request):
     # Check if the HTTP request method is POST (form submission)
     if request.method == "POST":
         username = request.POST.get('username')
@@ -51,19 +50,17 @@ def login_page(request):
         if user is None:
             # Display an error message if authentication fails (invalid password)
             messages.error(request, "Invalid Password")
-            return redirect('../login/')
+            return redirect('my_questions:login_view')
         else:
             # Log in the user and redirect to the home page upon successful login
             login(request, user)
-            return redirect('../home/')
+            return redirect('my_questions:home')
 
     # Render the login page template (GET request)
-    return render(request, 'my_questions/login.html')
+    return render(request, 'my_questions/login_group/login.html')
 # TODO rewrite
 
-# Define a view function for the registration page
-
-def register_page(request):
+def register_page_view(request):
     # Check if the HTTP request method is POST (form submission)
     if request.method == 'POST':
         first_name = request.POST.get('first_name')
@@ -92,10 +89,10 @@ def register_page(request):
 
         # Display an information message indicating successful account creation
         messages.info(request, "Account created Successfully!")
-        return redirect('../register/')
+        return redirect('my_questions:login_view')
 
     # Render the registration page template (GET request)
-    return render(request, 'my_questions/register.html')
+    return render(request, 'my_questions/login_group/register.html')
 # TODO rewrite
 
 
@@ -111,28 +108,36 @@ def add_question(request):
     form = AddQuestionForm(request.POST, request.FILES)
 
     if form.is_valid():
-        q = Question(created = timezone.now(), last_edited = timezone.now() )
-        q.save()
-        q.user.set([request.user])
-        ver = form.save(commit=False)
-        ver.question = q
-        ver.created = timezone.now()
-        q.save()
-        form.save_m2m()
-        ver.save()
-        return HttpResponseRedirect("../list/")
+        with (transaction.atomic()):
+            q = Question(created = timezone.now(), last_edited = timezone.now() )
+            q.save()
+            q.user.set([request.user])
+            ver = form.save(commit=False)
+            ver.question = q
+            ver.created = timezone.now()
+            ver.last_edited = timezone.now()
+            q.save()
+            form.save_m2m()
+            ver.save()
+            return redirect("my_questions:questions_list_view")
     else:
-        return HttpResponseRedirect("../home/")
+        return redirect("my_questions:homw")
 
     # incoming = request.POST.dict()
 
 @login_required
-def my_questions_list(request):
+def questions_list_view(request):
     # user = User.objects.filter(pk = request.user)
     quests = request.user.question_set.all()
-    quests2 = [q.version_set.latest('created') for q in quests]
+    quests2 = []
+    for q in quests:
+        try:
+            quests2.append(q.version_set.latest('created'))
+        except Version.DoesNotExist:
+            quests2.append(Version(text="нет версий", question = q))
+
     return render(request,
-                  "my_questions/my_questions_list.html",
+                  "my_questions/questions_list_view.html",
                   {"quests": quests2})
 
 @login_required
@@ -140,6 +145,7 @@ def delete_question(request):
     if request.method != 'POST':
         return HttpResponseRedirect("404")
 
+    print(request.POST.get('question_id'))
     question_to_delete = get_object_or_404(Question, pk = request.POST.get('question_id'))
 
     if question_to_delete not in request.user.question_set.all():
@@ -148,9 +154,9 @@ def delete_question(request):
     if request.POST.get('action') == 'delete':
         # Question is deleted here
         question_to_delete.delete()
-        return redirect('my_questions:my_questions_list')
+        return redirect('my_questions:questions_list_view')
     elif request.POST.get('action') == 'keep':
-        return redirect('my_questions:my_questions_list')
+        return redirect('my_questions:questions_list_view')
     else:
         return render(request,
                "my_questions/delete_approve.html",

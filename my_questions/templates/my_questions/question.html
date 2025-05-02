@@ -8,15 +8,33 @@
 {% block content %}
 {{version_set}}
 
-
-<form enctype="multipart/form-data" method="post" action="{% url 'my_questions:edit_question' %}">
+<div class="container-fluid">
+  <form enctype="multipart/form-data" method="post" action="{% url 'my_questions:edit_question' %}">
   {% csrf_token %}
   <input type="hidden" id="question" name="question" value="{{my_question.id}}">
 
-    {{ question_form_set }}
+    {{ question_form_set.management_form }}
+    <div class="row">
+      {% for p in question_form_set %}
+
+          <div class="col-6">
+            {{ p.id }}
+            {{ p.razdatka }}
+            {{ p.text }}
+            {{ p.answer }}
+            {{ p.also_answer }}
+            {{ p.not_answer }}
+            {{ p.commentary }}
+            {{ p.sources }}
+          </div>
+
+      {% endfor %}
+    </div>
+        {{ question_form_set.media }}
+
 
   <input type="submit" value="Submit">
 </form>
 
-
+</div>
 {% endblock %}

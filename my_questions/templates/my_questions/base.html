@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 {% load static %}
 {% load my_questions_extras %}
+{% load django_simple_nav %}
+
+
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -14,6 +17,7 @@
 
 </head>
 <body>
+    {% django_simple_nav "my_questions.menu.MainNav" %}
     <div class="site-envelope mx-sm-2 mx-md-4">
         {% block content %}
         {% endblock %}

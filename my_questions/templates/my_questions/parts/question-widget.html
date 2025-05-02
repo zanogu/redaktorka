@@ -1,6 +1,8 @@
+{% load my_questions_extras %}
+
 <div data-question="{{q.question.id}}" class="question-widget">
   <div>{{q.question.id}}</div>
-  <div>{{q.preview.text}}</div>
+  <div>{{q.preview.text | extract_text_from_html}}</div>
   <div>{{q.preview.answer}}</div>
   <input type="hidden" id="question" name="question" value="{{q.question.id}}">
 
@@ -14,7 +16,7 @@
         {% if is_debug %}
           <div>{{v.id}}</div>
         {% endif %}
-        <div>{{v.text}}</div>
+        <div>{{v.text | safe}}</div>
         <div>{{v.answer}}</div>
         <div>{{v.created}}</div>
       </div>

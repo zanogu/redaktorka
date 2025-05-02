@@ -2,6 +2,9 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.forms import model_to_dict
 from encrypted_model_fields.fields import EncryptedCharField, EncryptedTextField
+from tinymce.models import HTMLField
+
+
 
 # Create your models here.
 
@@ -14,13 +17,14 @@ class Question(models.Model):
 class Version(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     razdatka = models.ImageField(upload_to = "my_questions/static/my_questions/uploads/",blank=True)
-    text = EncryptedTextField(blank=True)
+    text = models.TextField()
     answer = EncryptedCharField(blank=True)
     also_answer = EncryptedCharField(blank=True)
     not_answer = EncryptedCharField(blank=True)
     commentary = EncryptedTextField(blank=True)
     sources = EncryptedTextField(blank=True)
     created = models.DateTimeField()
+    last_edited = models.DateTimeField(blank=True)
 
     class Meta:
         ordering = ["-created"]

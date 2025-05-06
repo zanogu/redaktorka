@@ -1,5 +1,6 @@
-from .models import *
+from my_questions.models import *
 from typing import Dict, List
+from my_questions.forms import *
 
 class ArgumentException(BaseException):
     pass
@@ -21,9 +22,17 @@ class Renderer():
         if len(all_versions) == 0:
             return question_dict
         if len(used_versions) == 0:
-            question_dict = model_to_dict(question.version_set.all()[0])
+            q1 = question.version_set.all()[0]
+            question_dict = model_to_dict(q1)
+            question_dict["editor_comments_forms"] = (
+                EditVersionComment({'editor_comments': q1.editor_comments, 'pk': q1.id}))
         else:
-            question_dict = model_to_dict(used_versions[0])
+            q1 = used_versions[0]
+            question_dict = model_to_dict(q1)
+            question_dict["editor_comments_forms"] = (
+                EditVersionComment({'editor_comments': q1.editor_comments, 'pk': q1.id}))
+
+
 
         for i, v in question_dict.items():
             question_dict[i] = [v]
@@ -35,12 +44,16 @@ class Renderer():
                         if (value is not None and value != ""
                                 and value not in question_dict[key]):
                             question_dict[key].append(value)
+                    question_dict["editor_comments_forms"].append(
+                        EditVersionComment({'editor_comments': q1.editor_comments,
+                                            'pk': uv.id}))
 
         for uuv in all_versions:
             for key, value in model_to_dict(uuv).items():
                 if ((value is not None and value != "")
                         and (len(question_dict[key]) == 0)):
                     question_dict[key].append(value)
+
 
         return question_dict
 
@@ -54,12 +67,13 @@ class Renderer():
 
         for tq in tqs:
             q = tq.question
-            test_list.append(
-                Renderer.question_to_dict(
+            q_dict = Renderer.question_to_dict(
                     q,
                     [v for v in versions if v in q.version_set.all()]
                 )
-            )
+            q_dict["rating"] = RateQuestion(instance=tq)
+            q_dict["is_answered"] = IsAnsweredQuestion(instance=tq)
+            test_list.append(q_dict)
         return test_list
 
 

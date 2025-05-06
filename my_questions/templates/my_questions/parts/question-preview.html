@@ -1,0 +1,15 @@
+{% load my_questions_extras %}
+
+<div class="question-preview-container">
+  {% if q|latest_version_razdatka  %}
+      {% with razdatka=q|latest_version_razdatka %}
+          <div><img src="{{razdatka.url}}" class="razdatka"></div>
+      {% endwith %}
+  {% endif %}
+
+  {% if is_debug %}
+    <div>{{ q.id }}</div>
+  {% endif %}
+  <div>{{ q|latest_version_text|truncatewords:10 }}</div>
+  <div>{{ q|latest_version_answer }}</div>
+</div>

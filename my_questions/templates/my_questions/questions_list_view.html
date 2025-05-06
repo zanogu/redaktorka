@@ -9,19 +9,12 @@
 {% block content %}
     {% for q in quests %}
         <div>
-            {% if q.razdatka %}
-                <div><img src="{{q.razdatka.url}}" class="razdatka"></div>
-            {% endif %}
-            <a href="{% url 'my_questions:question' question_id=q.question.id %}">
-                {% if is_debug %}
-                  <div>{{q.question.id}}</div>
-                {% endif %}
-                <div>{{q.text | extract_text_from_html}}</div>
-                <div>{{q.answer}}</div>
+            <a href="{% url 'my_questions:question' question_id=q.id %}">
+                {% include "my_questions/parts/question-preview.html" with q=q %}
             </a>
-            <form action="{% url 'my_questions:delete_question' %}" method="post">
+            <form action="{% url 'my_questions:delete_question_backend' %}" method="post">
                 {% csrf_token %}
-                <input type="hidden"  name="question_id" value="{{q.question.id}}">
+                <input type="hidden"  name="question_id" value="{{ q.id }}">
                 <button type="submit" name="action" value="approve"> Удалить </button>
             </form>
         </div>

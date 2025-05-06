@@ -9,59 +9,105 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-6">
-      <form enctype="multipart/form-data" method="post" action="{% url 'my_questions:edit_test_backend' %}">
-  {% csrf_token %}
-  <div>
-    <h4>Описание теста</h4>
-    <div>
-      <input type="text" id="test-name" name="test-name">
-    </div>
-    <div>
-      <textarea id="test-description" name="test-description" rows="5" cols="33"></textarea>
+      <form id="test-form" enctype="multipart/form-data" method="post" action="{% url 'my_questions:edit_test_backend' %}">
+        {% csrf_token %}
+        <div>
+          <h4>Описание теста</h4>
+          <div>
+            {% if test.id %}
+              <input type="hidden" name="test-id" id="test-id" value="{{test.id}}">
+            {% endif %}
+            <input type="text" id="test-name" name="test-name" {% if test.name %} value="{{test.name}}" {% endif %}>
+          </div>
+          <div>
+            <textarea id="test-description" name="test-description" rows="5" cols="33">{% if test.description %}{{test.description}}{% endif %}</textarea>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
 
-  <div>
-    <div id="question-test-basket" class="connectedSortableQuestions connectedSortable">
-      {% for q in quests_tested %}
-        {% include 'my_questions/parts/question-widget.html' with q=q %}
-      {% endfor %}
-    </div>
-  </div>
-  <div>
-    <div id="tester-test-basket" class="connectedSortableTesters connectedSortable">
-      {% for t in testers_tested %}
-        {% include 'my_questions/parts/tester-widget.html' with t=t %}
-      {% endfor %}
-    </div>
-  </div>
-  <input type="submit" value="Submit">
+  <div id="tabs">
+    <ul>
+      <li><a href="#tabs-q">Вопросы</a></li>
+      <li><a href="#tabs-t">Тестеры</a></li>
+    </ul>
 
-</form>
-    </div>
-    <div class="col-6">
-      <div id="question-basket" class="connectedSortableQuestions connectedSortable">
-      {% for q in quests %}
-        {% include 'my_questions/parts/question-widget.html' with q=q %}
-      {% endfor %}
-    </div>
-      <div id="tester-basket" class="connectedSortableTesters connectedSortable">
-        {% for t in testers %}
-            {% include 'my_questions/parts/tester-widget.html' with t=t %}
-          {% endfor %}
+    <div id="tabs-q">
+      <div class="row">
+        <div class="col-6">
+          <div id="question-test-basket" class="connectedSortableQuestions connectedSortable">
+            {% for q in quests_tested %}
+              {% include 'my_questions/parts/question-widget.html' with q=q versions_marked=versions_tested form="test-form" %}
+            {% endfor %}
+          </div>
+        </div>
+        <div class="col-6">
+          <div id="question-basket" class="connectedSortableQuestions connectedSortable">
+            {% for q in quests %}
+              {% include 'my_questions/parts/question-widget.html' with q=q versions_marked=versions %}
+            {% endfor %}
+          </div>
+
+        </div>
       </div>
     </div>
+
+
+    <div id="tabs-t">
+      <div class="row">
+        <div class="col-6">
+          <div>
+            <fieldset form="test-form">
+              <div id="tester-test-basket" class="connectedSortableTesters connectedSortable">
+                {% for t in testers_tested %}
+                  {% include 'my_questions/parts/tester-widget.html' with t=t form="test-form" %}
+                {% endfor %}
+              </div>
+            </fieldset>
+          </div>
+        </div>
+        <div class="col-6">
+          <div id="tester-basket" class="connectedSortableTesters connectedSortable">
+            {% for t in testers %}
+                {% include 'my_questions/parts/tester-widget.html' with t=t %}
+              {% endfor %}
+          </div>
+
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
+
+<input type="submit" form="test-form">
+
 <script>
   $( function() {
-    $( "#question-test-basket, #question-basket" ).sortable({
-      connectWith: ".connectedSortableQuestions"
+    $("#question-test-basket, #question-basket").sortable({
+      connectWith: ".connectedSortableQuestions",
+      receive: function(event, ui) {
+        // Check which list is receiving the item
+        if (this.id === "question-test-basket") {
+          ui.item.find("input").attr("form", "test-form");
+        } else if (this.id === "question-basket") {
+          ui.item.find("input").removeAttr("form");
+        }
+      }
     }).disableSelection();
 
     $( "#tester-test-basket, #tester-basket" ).sortable({
-      connectWith: ".connectedSortableTesters"
+      connectWith: ".connectedSortableTesters",
+      receive: function(event, ui) {
+        // Check which list is receiving the item
+        if (this.id === "tester-test-basket") {
+          ui.item.find("input").attr("form", "test-form");
+        } else if (this.id === "tester-basket") {
+          ui.item.find("input").removeAttr("form");
+        }
+      }
     }).disableSelection();
 
     $( ".accordion" ).accordion({
@@ -69,7 +115,12 @@
       active:false
     });
 
+    $( "#tabs" ).tabs();
+
+
   } );
+
+
 </script>
 
 

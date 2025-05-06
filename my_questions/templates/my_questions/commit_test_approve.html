@@ -1,0 +1,25 @@
+{% extends "my_questions/base.html"%}
+{% load static %}
+
+{% block title %}
+    Тест проведён?
+{% endblock %}
+
+{% block content %}
+Этот тест был проведён?
+Внимание! Если вы ответите ДА, его и версии вопросов в нём уже нельзя будет удалить из интерфейса
+<div>
+    {{test_to_commit.name}}
+</div>
+<div>
+    {{test_to_commit.description}}
+</div>
+<form action="{% url 'my_questions:test_commit_backend' %}" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{{ next }}">
+    <input type="hidden"  name="test_id" value="{{test_to_commit.id}}">
+    <button type="submit" name="action" value="keep">  НЕТ, всё-таки </button>
+    <button type="submit" name="action" value="commit"> ДА </button>
+</form>
+
+{% endblock %}

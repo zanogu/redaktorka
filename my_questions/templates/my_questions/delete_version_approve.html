@@ -2,20 +2,21 @@
 {% load static %}
 
 {% block title %}
-    Добавить вопрос
+    Действительно удалить тест?
 {% endblock %}
 
 {% block content %}
-Удалить этот вопрос?
+Удалить эту версию?
 <div>
-    {{question_to_delete.text}}
+    {{version_to_delete.text}}
 </div>
 <div>
-    {{question_to_delete.answer}}
+    {{version_to_delete.answer}}
 </div>
-<form action="{% url 'my_questions:delete_question_backend' %}" method="post">
+
+<form action="{% url 'my_questions:version_delete_backend' %}" method="post">
     {% csrf_token %}
-    <input type="hidden"  name="question_id" value="{{question_to_delete.id}}">
+    <input type="hidden"  name="version_id" value="{{version_to_delete.id}}">
     <button type="submit" name="action" value="keep">  НЕТ, всё-таки </button>
     <button type="submit" name="action" value="delete"> УДАЛИТЬ </button>
 </form>

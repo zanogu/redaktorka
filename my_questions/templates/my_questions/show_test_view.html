@@ -7,8 +7,26 @@
 {% endblock %}
 
 {% block content %}
-<h2>Тест {{test.name}}</h2>
+
+
 <div class="container-fluid">
+  <div class="row">
+    <div class="col-8">
+      <h2>Тест {{test.name}}</h2>
+    </div>
+    <div class="col-4">
+      {% if test.committed %}
+      <p> Этот тест был проведён {{test.committed_datetime}} </p>
+      {% else  %}
+      <form action="{% url 'my_questions:test_commit_backend' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ request.path }}">
+        <input type="hidden"  name="test_id" value="{{test.id}}">
+        <button type="submit" name="action" value="approve"> Тест был проведён </button>
+      </form>
+      {% endif %}
+    </div>
+  </div>
   <div class="row">
     <div class="col-6">
       {% for q in test_dict %}
@@ -64,15 +82,82 @@
             {{t}}
           {% endfor %}
         </p>
-
+        <div class="editors-comments">
+          {% for t in q.editor_comments_forms %}
+            <form class="comment-form" enctype="multipart/form-data">
+              {% csrf_token %}
+              <input type="hidden" name="pk" value="{{t.pk.value}}">
+              {{ t.editor_comments }}
+              {{ t.media }}
+              <input type="submit">
+            </form>
+          {% endfor %}
+        </div>
+        <form class="rating-form" enctype="multipart/form-data">{% csrf_token %}{{q.rating}}</form>
+        <form class="is-answered-form" enctype="multipart/form-data">{% csrf_token %}{{q.is_answered}}</form>
       </div>
-
       {% endfor %}
 
 
     </div>
   </div>
 </div>
+
+<script>
+  $( function() {
+
+      $('.rating-form select[name="rating"]').on('change', function() {
+        const form = $(this).closest('form');
+        $.ajax({
+          url: '{% url "my_questions:save_rating_backend" %}',
+          type: 'POST',
+          data: form.serialize(),
+          dataType: 'json',
+          success: function(response) {
+            if (response.success) {
+              $('#alert').html('<div class="alert alert-success">Thank you for your message!</div>').show();
+            } else {
+              $('#alert').html('<div class="alert alert-danger">' + response.errors + '</div>').show();
+            }
+          }
+        });
+      });
+
+      $('.is-answered-form select[name="is_answered"]').on('change', function() {
+        const form = $(this).closest('form');
+        $.ajax({
+          url: '{% url "my_questions:save_is_answered_backend" %}',
+          type: 'POST',
+          data: form.serialize(),
+          dataType: 'json',
+          success: function(response) {
+            if (response.success) {
+              $('#alert').html('<div class="alert alert-success">Thank you for your message!</div>').show();
+            } else {
+              $('#alert').html('<div class="alert alert-danger">' + response.errors + '</div>').show();
+            }
+          }
+        });
+      });
+
+     $('.comment-form').on('submit', function(event) {
+      event.preventDefault();
+      $.ajax({
+        url: '{% url "my_questions:save_comment_backend" %}',
+        type: 'POST',
+        data: $(this).serialize(),
+        dataType: 'json',
+        success: function(response) {
+          if (response.success) {
+            $('#alert').html('<div class="alert alert-success">Thank you for your message!</div>').show();
+          } else {
+            $('#alert').html('<div class="alert alert-danger">' + response.errors + '</div>').show();
+          }
+        }
+      });
+    });
+  });
+</script>
 
 
 

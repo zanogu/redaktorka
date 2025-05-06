@@ -1,32 +1,85 @@
 {% extends "my_questions/base.html"%}
 {% load static %}
+{% load my_questions_extras %}
+
 
 {% block title %}
 Вопрос номер {{my_question.id}}
 {% endblock %}
 
 {% block content %}
-{{version_set}}
+
+{{my_question.testers|tester_list}}
 
 <div class="container-fluid">
-  <form enctype="multipart/form-data" method="post" action="{% url 'my_questions:edit_question' %}">
+  {% for p in question_form_set %}
+    <form id = "delete-ver-{{ p.id.auto_id }}" action="{% url 'my_questions:version_delete_backend' %}" method="post">
+     {% csrf_token %}
+      <input form="delete-ver-{{ p.id.auto_id }}" type="hidden"  name="version_id" value="{{ p.id.value }}">
+    </form>
+    <form id="copy-version-{{ p.instance.id }}" action="{% url 'my_questions:version_copy_backend' %}" method="post">
+      <input form="copy-version-{{ p.instance.id }}" type="hidden"  name="version_id" value="{{ p.instance.id }}">
+      {% csrf_token %}
+    </form>
+  {% endfor %}
+
+
+
+
+  <form enctype="multipart/form-data" method="post" action="{% url 'my_questions:edit_question_backend' %}">
   {% csrf_token %}
   <input type="hidden" id="question" name="question" value="{{my_question.id}}">
 
     {{ question_form_set.management_form }}
     <div class="row">
       {% for p in question_form_set %}
+          {% if p.instance.id and p.instance.is_part_of_committed_tests %}
+            <div class="col-6">
+              <div class="version-cont-locked">
+                <div> Эта версия использована в тесте </div>
+                {% if p.instance.razdatka %}
+                  <div><img src="{{p.instance.razdatka.url}}" class="razdatka"></div>
+                {% endif %}
+                <div>{{p.instance.text|safe}}</div>
+                <div>{{p.instance.answer}}</div>
+                <div>{{p.instance.also_answer}}</div>
+                <div>{{p.instance.not_answer}}</div>
+                <div>{{p.instance.commentary}}</div>
+                <div>{{p.instance.created}}</div>
 
-          <div class="col-6">
-            {{ p.id }}
-            {{ p.razdatka }}
-            {{ p.text }}
-            {{ p.answer }}
-            {{ p.also_answer }}
-            {{ p.not_answer }}
-            {{ p.commentary }}
-            {{ p.sources }}
-          </div>
+                <button form="copy-version-{{ p.instance.id }}" type="submit" name="action" value="copy"> Скопировать </button>
+              </div>
+            </div>
+
+            {% endif %}
+            <div class="col-12 {% if p.instance.id and p.instance.is_part_of_committed_tests %}d-none{% endif %}">
+              <div class="version-cont">
+              {% if is_debug %}
+                {{ p.id }}
+              {% endif %}
+              <label class="form-label">{{question_part_names.razdatka}}</label>
+              {{ p.razdatka }}
+              <label class="form-label">{{question_part_names.text}}</label>
+              {{ p.text }}
+              <label class="form-label">{{question_part_names.answer}}</label>
+              {{ p.answer }}
+              <label class="form-label">{{question_part_names.also_answer}}</label>
+              {{ p.also_answer }}
+              <label class="form-label">{{question_part_names.not_answer}}</label>
+              {{ p.not_answer }}
+              <label class="form-label">{{question_part_names.commentary}}</label>
+              {{ p.commentary }}
+              <label class="form-label">{{question_part_names.sources}}</label>
+              {{ p.sources }}
+              <label class="form-label">{{question_part_names.editor_comments}}</label>
+              {{ p.editor_comments }}
+              <button form="copy-version-{{ p.instance.id }}" type="submit" name="action" value="copy"> Скопировать </button>
+              <button form="delete-ver-{{ p.id.auto_id }}" type="submit" name="action" value="approve"> Удалить </button>
+
+            </div>
+            </div>
+
+
 
       {% endfor %}
     </div>

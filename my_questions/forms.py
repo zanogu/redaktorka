@@ -9,17 +9,61 @@ class AddQuestionForm(ModelForm):
     class Meta:
         model = Version
         widgets = {'text': TinyMCE(attrs={'cols': 80, 'rows': 30})}
-        fields = ["razdatka", "text", "answer", "also_answer", "not_answer","commentary", "sources"]
+        fields = ["razdatka",
+                  "text",
+                  "answer",
+                  "also_answer",
+                  "not_answer",
+                  "commentary",
+                  "sources"]
 
 class EditQuestionForm(ModelForm):
     class Meta:
         model = Version
         widgets = {'text': TinyMCE(attrs={'cols': 80, 'rows': 30})}
-        fields = ["id", "razdatka", "text", "answer", "also_answer", "not_answer","commentary", "sources"]
+        fields = ["id",
+                  "razdatka",
+                  "text",
+                  "answer",
+                  "also_answer",
+                  "not_answer",
+                  "commentary",
+                  "sources",
+                  "editor_comments"]
 
 class EditTesterForm(ModelForm):
     class Meta:
         model = Tester
         exclude = ["test", "user"]
 
-VersionFormSet = modelformset_factory(Version, exclude = ["question", "created"], widgets={"text": TinyMCE(attrs={'cols': 80, 'rows': 30})} )
+class EditVersionComment(ModelForm):
+    pk = forms.IntegerField()
+    class Meta:
+        model = Version
+        fields = ["editor_comments"]
+        widgets = {'editor_comments': TinyMCE(attrs={'cols': 40, 'rows': 30})}
+
+class RateQuestion(ModelForm):
+    class Meta:
+        model = TestQuestion
+        fields = ["rating", "test", "question"]
+        widgets = {'test': forms.HiddenInput(),
+                   'question': forms.HiddenInput()}
+
+class IsAnsweredQuestion(ModelForm):
+    class Meta:
+        model = TestQuestion
+        fields = ["is_answered", "test", "question"]
+        widgets = {'test': forms.HiddenInput(),
+                   'question': forms.HiddenInput()}
+
+VersionFormSet = modelformset_factory(
+    Version,
+    exclude = ["question", "created"],
+    widgets={
+        "text": TinyMCE(attrs={'cols': 80, 'rows': 30}),
+        "editor_comments": TinyMCE(attrs={'cols': 50, 'rows': 10})
+    },
+    extra=0
+)
+

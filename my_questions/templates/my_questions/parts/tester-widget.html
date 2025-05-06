@@ -1,4 +1,6 @@
 <div data-tester="{{t.id}}" class="tester-widget">
   <div>{{t.surname_name}}</div>
-  <input form="{{form}}" type="hidden" id="tester" name="tester" value="{{t.id}}">
+  {% if not is_without_form %}
+    <input form="{{form}}" type="hidden" id="tester" name="tester" value="{{t.id}}">
+  {% endif %}
 </div>

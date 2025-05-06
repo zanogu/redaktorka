@@ -319,13 +319,12 @@ def test_commit_backend(request):
 @login_required
 def create_test_view(request):
     quests = request.user.question_set.all()
-    quests2 = [{"preview": q.version_set.latest('created'), "question": q} for q in quests]
     testers = request.user.tester_set.all()
     if request.method != 'POST':
         return render(request,
                    "my_questions/edit_test.html",
                       {
-                          'quests': quests2,
+                          'quests': quests,
                           'quests_tested':[],
                           'testers': testers,
                           'testers_tested':[],
@@ -358,8 +357,8 @@ def edit_test_view(request, test_id: int):
                    "my_questions/edit_test.html",
                       {
                           'test':test,
-                          'quests': quests_not_in_test_ready,
-                          'quests_tested':quests_in_test_ready,
+                          'quests': quests_not_in_test,
+                          'quests_tested':quests_in_test,
                           'testers': testers_not_in_test,
                           'testers_tested': testers_in_test,
                           'versions': [],

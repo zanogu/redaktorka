@@ -108,7 +108,7 @@ def add_question(request):
         return render(request, "my_questions/add_question.html",
                       {"add_question_form": AddQuestionForm()})
     form = AddQuestionForm(request.POST, request.FILES)
-
+    print(form)
     if form.is_valid():
         with (transaction.atomic()):
             q = Question(created = timezone.now(), last_edited = timezone.now() )
@@ -123,7 +123,7 @@ def add_question(request):
             ver.save()
             return redirect("my_questions:questions_list_view")
     else:
-        return redirect("my_questions:homw")
+        return redirect("my_questions:home")
 
 # Shows questions as list
 @login_required
@@ -185,13 +185,16 @@ def question(request, question_id: int):
 # Handles question and its versions editing
 @login_required
 def edit_question_backend(request):
-    formset = VersionFormSet(request.POST, request.FILES)
-    my_question = get_object_or_404(Question, pk = int(request.POST.get("question")))
 
+    formset = VersionFormSet(request.POST, request.FILES)
+    print("FORMSET", formset)
+    my_question = get_object_or_404(Question, pk = int(request.POST.get("question")))
+    print("valid", formset.is_valid())
     if formset.is_valid():
         for form in formset:
             if form.cleaned_data !={}:
                 instance = form.save(commit=False)
+
                 if instance.created is None:
                     instance.created = timezone.now()
                 instance.question = my_question

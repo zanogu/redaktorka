@@ -1,0 +1,344 @@
+@import '../my_questions/lib/bootstrap/scss/bootstrap.scss';
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans+Narrow:wght@400;700&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+body {
+    @extend .bg-body-secondary;
+    font-size: 14px;
+    font-family: "PT Sans", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 700;
+}
+
+h1,
+h2 {
+    font-family: "PT Sans", sans-serif;
+    /*font-family: "PT Serif", sans-serif;*/
+    font-weight: 700;
+    font-style: normal;
+}
+
+h2 {
+    font-size: 4rem;
+    line-height: 1;
+}
+
+h3 {
+    font-size: 2rem;
+}
+
+h5 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+a {
+    color: black;
+    background: none;
+    border: 0px;
+    padding: 0;
+    text-decoration: underline;
+    text-decoration-style: dotted;
+}
+
+input[type="text"], input[type="password"], input[type="file"], input[type="number"], textarea{
+    @extend .form-control;
+}
+
+label{
+    @extend .form-label;
+    @extend .mt-1;
+    margin-bottom: 0;
+}
+
+input[type="submit"],
+button {
+    @extend .btn;
+    @extend .btn-dark;
+}
+
+button[type="submit"]{
+    @extend .btn-lg;
+}
+
+select {
+    @extend .form-select;
+}
+
+.razdatka {
+    max-width: 250px;
+}
+
+.input-group{
+    @extend .mt-2;
+    label{
+        @extend .mt-0;
+    }
+}
+
+.site-envelope{
+    @extend .container-fluid;
+    @extend .mt-4;
+}
+
+
+.bottom-bar{
+    @extend .navbar;
+    @extend .fixed-bottom;
+    @extend .bg-dark-subtle;
+
+    .left-aligned-part{
+        @extend .navbar-brand;
+    }
+    a{
+        @extend .btn;
+        @extend .btn-primary;
+        @extend .float-end;
+    }
+}
+
+
+.question-preview-container {
+    @extend .d-flex;
+
+    .q-id {
+        font-size: 1.5rem;
+        font-weight: 700;
+        line-height: 1.5rem;
+    }
+
+    .question-preview {
+        @extend .flex-grow-1;
+        @extend .ms-4;
+        @extend .me-2;
+    }
+
+    .question-field-name{
+        font-weight: 700;
+    }
+
+    .razdatka{
+        @extend .ms-4;
+        max-height: 100px;
+    }
+}
+
+.question-editor-header{
+    @extend .mb-4;
+}
+
+.version-cont, .version-cont-locked{
+    @extend .p-4;
+    @extend .bg-white;
+    @extend .mb-4;
+
+    .version-header > div{
+        @extend .d-inline-block;
+    }
+    .version-controls{
+        @extend .float-end
+    }
+
+  }
+  
+  .version-cont-locked{
+    @extend .bg-dark-subtle;
+  }
+
+// TEST
+
+.list-t-block,
+.list-q-block {
+    @extend .d-flex;
+    @extend .p-3;
+    @extend .mb-2;
+    @extend .bg-white;
+
+    .list-t-testers {
+        text-decoration: none;
+
+        &>div {
+            text-decoration: none;
+            @extend .me-1;
+            @extend .d-inline-block;
+            @extend .pe-1;
+            @extend .ps-1;
+            background-color: black;
+            color: white;
+            font-size: 0.75rem;
+        }
+    }
+
+    .controls {
+        white-space: nowrap;
+        &>div {
+            @extend .d-inline-block;
+
+            a,
+            button {
+                @extend .btn;
+                @extend .btn-sm;
+                @extend .btn-dark;
+            }
+        }
+    }
+
+    .info {
+        @extend .flex-grow-1;
+    }
+}
+
+#tabs{
+    @extend .mt-4;
+}
+
+.test-title{
+    @extend .mb-4;
+}
+
+body .ui-widget.ui-widget-content{
+    .ui-widget-header{
+        background-color: white;
+        border-radius: 0;
+        border: 0;
+        @extend .border-bottom;
+        @extend .border-black;
+    }
+    
+    li.ui-state-default{
+        @extend .bg-dark-subtle;
+        border-radius: 0;
+        border: 0;
+    }
+    li.ui-state-default.ui-state-active{
+        @extend .bg-white;
+        border: black solid 1px;
+        border-bottom: 0;
+        a{
+            color: black !important;
+        }
+    }
+    border-radius: 0;
+    border: 0;
+}
+
+.connectedSortable{
+    @extend .px-2;
+    @extend .pt-2;
+    @extend .bg-dark-subtle;
+    min-height: 40px;
+    min-width: 100px;
+    height: 100%;
+
+}
+
+.question-widget{
+    @extend .bg-white;
+    @extend .mb-2;
+    overflow: auto;
+
+    .question-preview-container{
+        @extend .m-2;
+        .question-preview{
+            font-size: 0.75rem
+        }
+    }
+
+    .ui-accordion h3{
+        border-radius: 0;
+        border: 0;
+        @extend .text-bg-dark;
+    }
+
+    .ui-accordion h3.ui-accordion-header-active{
+        @extend .bg-secondary;
+    }
+}
+
+.tester-widget{
+    @extend .bg-white;
+    @extend .mb-2;
+    @extend .p-1;
+    overflow: auto;
+    font-size: 0.75rem
+}
+
+/* Test output */
+
+.test-output-q {
+    @extend .p-3;
+    @extend .mb-2;
+    @extend .bg-white;
+}
+
+.tox-tinymce {
+    width: 100% !important;
+}
+
+.test-committed-block {
+    @extend .mb-4;
+}
+
+// Timer
+
+.timer{
+    input{
+        @extend .form-control-sm
+    }
+    button{
+        @extend .btn-sm
+    }
+
+    #base-circle{
+        stroke: white !important;
+    }
+
+    #countdown-timer {
+        display: flex;
+        align-items: center;
+        font-family: Arial, sans-serif;
+        gap: 20px;
+      }
+      
+      #timer-display {
+        position: relative;
+        width: 80px;
+        height: 80px;
+      }
+      
+      #time-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-weight: bold;
+      }
+      
+      #controls-area {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      
+      #controls button {
+        margin-right: 5px;
+      }
+      
+      #progress-circle.negative {
+        stroke: red !important;
+      }
+      
+      #progress-circle.warning {
+        stroke: orange !important;
+      }
+}
+

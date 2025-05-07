@@ -23,14 +23,16 @@
     </form>
   {% endfor %}
 
+  <form enctype="multipart/form-data" id="versions-form" method="post" action="{% url 'my_questions:edit_question_backend' %}">
 
-
-
-  <form enctype="multipart/form-data" method="post" action="{% url 'my_questions:edit_question_backend' %}">
-  {% csrf_token %}
-  <input type="hidden" id="question" name="question" value="{{my_question.id}}">
-
+    {% csrf_token %}
     {{ question_form_set.management_form }}
+    <div class="question-editor-header">
+      <input type="hidden" id="question" name="question" value="{{my_question.id}}">
+      <button form="versions-form" type="submit" value="Submit">{{control_element_names.submit}}</button>
+    </div>
+
+
     <div class="row">
       {% for p in question_form_set %}
           {% if p.instance.id and p.instance.is_part_of_committed_tests %}
@@ -53,27 +55,37 @@
             {% endif %}
             <div class="col-12 {% if p.instance.id and p.instance.is_part_of_committed_tests %}d-none{% endif %}">
               <div class="version-cont">
-              {% if is_debug %}
-                {{ p.id }}
-              {% endif %}
-              <label class="form-label">{{question_part_names.razdatka}}</label>
-              {{ p.razdatka }}
-              <label class="form-label">{{question_part_names.text}}</label>
+                <div class="version-header">
+                  <div class="version-titles">
+                    <h4>{{terms.version}} {{p.instance.created}}</h4>
+
+                  </div>
+                  <div class="version-controls">
+                    <button form="copy-version-{{ p.instance.id }}" type="submit" name="action" value="copy"> {{control_element_names.copy}} </button>
+                    <button form="delete-ver-{{ p.id.auto_id }}" type="submit" name="action" value="approve"> {{control_element_names.delete}} </button>
+                  </div>
+                </div>
+
+              {{ p.id }}
+              <div class="razdatka-cont">
+                <label>{{question_part_names.razdatka}}</label>
+                {{ p.razdatka }}
+              </div>
+
+
+              <label>{{question_part_names.text}}</label>
               {{ p.text }}
-              <label class="form-label">{{question_part_names.answer}}</label>
-              {{ p.answer }}
-              <label class="form-label">{{question_part_names.also_answer}}</label>
-              {{ p.also_answer }}
-              <label class="form-label">{{question_part_names.not_answer}}</label>
-              {{ p.not_answer }}
-              <label class="form-label">{{question_part_names.commentary}}</label>
+
+              {% include "my_questions/ui-components/input_group.html" with label=question_part_names.answer form_element=p.answer %}
+              {% include "my_questions/ui-components/input_group.html" with label=question_part_names.also_answer form_element=p.also_answer %}
+              {% include "my_questions/ui-components/input_group.html" with label=question_part_names.not_answer form_element=p.not_answer %}
+
+              <label>{{question_part_names.commentary}}</label>
               {{ p.commentary }}
-              <label class="form-label">{{question_part_names.sources}}</label>
+              <label>{{question_part_names.sources}}</label>
               {{ p.sources }}
-              <label class="form-label">{{question_part_names.editor_comments}}</label>
+              <label>{{question_part_names.editor_comments}}</label>
               {{ p.editor_comments }}
-              <button form="copy-version-{{ p.instance.id }}" type="submit" name="action" value="copy"> Скопировать </button>
-              <button form="delete-ver-{{ p.id.auto_id }}" type="submit" name="action" value="approve"> Удалить </button>
 
             </div>
             </div>
@@ -85,7 +97,7 @@
         {{ question_form_set.media }}
 
 
-  <input type="submit" value="Submit">
+
 </form>
 
 </div>

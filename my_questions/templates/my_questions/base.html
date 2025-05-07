@@ -18,14 +18,16 @@
 </head>
 <body>
     {% django_simple_nav "my_questions.menu.MainNav" %}
-    <div class="site-envelope mx-sm-2 mx-md-4">
+    <div class="site-envelope ">
         {% block content %}
         {% endblock %}
 
         <footer>
             <p>&copy; 2025 Визуализации турниров. All rights reserved.</p>
         </footer>
-    </div>
 
+    </div>
+    {% block bottom_bar %}
+    {% endblock %}
 </body>
 </html>

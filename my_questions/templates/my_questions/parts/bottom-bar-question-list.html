@@ -1,0 +1,8 @@
+{% extends "my_questions/parts/bottom-bar-wrapper.html"%}
+
+{% block bottom_bar_contents %}
+<div class="container-fluid b-bar-q-list-cont">
+  <div class="left-aligned-part"></div>
+  <a href='{% url "my_questions:add_question" %}'>{{control_element_names.add_question}}</a>
+</div>
+{% endblock %}

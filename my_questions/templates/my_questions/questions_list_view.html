@@ -7,16 +7,31 @@
 {% endblock %}
 
 {% block content %}
+<div class="container-fluid">
+    <div class="col-12">
     {% for q in quests %}
-        <div>
-            <a href="{% url 'my_questions:question' question_id=q.id %}">
+        <div class="list-q-block">
+            <div class="info">
                 {% include "my_questions/parts/question-preview.html" with q=q %}
-            </a>
-            <form action="{% url 'my_questions:delete_question_backend' %}" method="post">
-                {% csrf_token %}
-                <input type="hidden"  name="question_id" value="{{ q.id }}">
-                <button type="submit" name="action" value="approve"> Удалить </button>
-            </form>
+            </div>
+            <div class="controls">
+                <div>
+                    <a href="{% url 'my_questions:question' question_id=q.id %}">Редактировать</a>
+                </div>
+                <div>
+                    <form action="{% url 'my_questions:delete_question_backend' %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden"  name="question_id" value="{{ q.id }}">
+                        <button type="submit" name="action" value="approve"> Удалить </button>
+                    </form>
+                </div>
+            </div>
         </div>
     {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block bottom_bar %}
+    {% include "my_questions/parts/bottom-bar-question-list.html" %}
 {% endblock %}

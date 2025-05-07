@@ -1,15 +1,25 @@
 {% load my_questions_extras %}
 
 <div class="question-preview-container">
+  {% if is_debug %}
+    <div class="q-id">{{ q.id }}</div>
+  {% endif %}
+
   {% if q|latest_version_razdatka  %}
       {% with razdatka=q|latest_version_razdatka %}
           <div><img src="{{razdatka.url}}" class="razdatka"></div>
       {% endwith %}
   {% endif %}
 
-  {% if is_debug %}
-    <div>{{ q.id }}</div>
-  {% endif %}
-  <div>{{ q|latest_version_text|truncatewords:10 }}</div>
-  <div>{{ q|latest_version_answer }}</div>
+
+  <div class="question-preview">
+    <div>
+      <span class="question-field-name">
+        {{question_part_names.question}}</span>: {{ q|latest_version_text|truncatewords:10 }}
+    </div>
+    <div>
+      <span class="question-field-name">
+        {{question_part_names.answer}}</span>: {{ q|latest_version_answer }}
+    </div>
+  </div>
 </div>

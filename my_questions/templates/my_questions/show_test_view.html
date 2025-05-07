@@ -14,21 +14,9 @@
     <div class="col-8">
       <h2>Тест {{test.name}}</h2>
     </div>
-    <div class="col-4">
-      {% if test.committed %}
-      <p> Этот тест был проведён {{test.committed_datetime}} </p>
-      {% else  %}
-      <form action="{% url 'my_questions:test_commit_backend' %}" method="post">
-        {% csrf_token %}
-        <input type="hidden" name="next" value="{{ request.path }}">
-        <input type="hidden"  name="test_id" value="{{test.id}}">
-        <button type="submit" name="action" value="approve"> Тест был проведён </button>
-      </form>
-      {% endif %}
-    </div>
   </div>
   <div class="row">
-    <div class="col-6">
+    <div class="col-9">
       {% for q in test_dict %}
       <div class="test-output-q">
         <h4 class="test-output-q-header">
@@ -158,7 +146,8 @@
     });
   });
 </script>
+{% endblock %}
 
-
-
+{% block bottom_bar %}
+    {% include "my_questions/parts/bottom-bar-test-view.html" %}
 {% endblock %}

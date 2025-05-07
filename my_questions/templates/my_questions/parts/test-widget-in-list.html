@@ -1,9 +1,10 @@
 {% load my_questions_extras %}
 
 <div data-test="{{test|model_to_dict_filter}}" class="list-t-block">
-        <a href="{% url 'my_questions:show_test_view' test_id=test.id %}">
+        <div class="info">
+
           <div class="list-t-name">
-            {{test.name}}
+            <h4>{{test.name}}</h4>
           </div>
           <div class="list-t-description">
             {{test.description}}
@@ -13,24 +14,27 @@
           </div>
           <div class="list-t-testers">
             {% for tr in test.testers.all %}
-              <div class="d-inline-block m-1 text-bg-dark p-1">{{tr.name_surname}}</div>
+              <div class="">{{tr.name_surname}}</div>
             {% endfor %}
           </div>
-        </a>
-        <div>
-          <div class="d-inline-block">
+        </div>
+        <div class="controls">
+          <div class="">
             {% if not test.committed %}
               <form action="{% url 'my_questions:test_delete_backend' %}" method="post">
                     {% csrf_token %}
                     <input type="hidden"  name="test_id" value="{{test.id}}">
                     <button type="submit" name="action" value="approve"> Удалить </button>
               </form>
-              <div class="d-inline-block">
-                <a href="{% url 'my_questions:edit_test_view' test_id=test.id %}"> Редактировать </a>
-              </div>
             {% else %}
               <p> Этот тест был проведён {{test.committed_datetime}} </p>
             {% endif %}
+          </div>
+          <div class="">
+            <a href="{% url 'my_questions:edit_test_view' test_id=test.id %}"> Редактировать </a>
+          </div>
+          <div class="">
+            <a href="{% url 'my_questions:show_test_view' test_id=test.id %}"> Пакет </a>
           </div>
         </div>
 

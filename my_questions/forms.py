@@ -41,7 +41,7 @@ class EditVersionComment(ModelForm):
     class Meta:
         model = Version
         fields = ["editor_comments"]
-        widgets = {'editor_comments': TinyMCE(attrs={'cols': 40, 'rows': 30})}
+        widgets = {'editor_comments': TinyMCE()}
 
 class RateQuestion(ModelForm):
     class Meta:

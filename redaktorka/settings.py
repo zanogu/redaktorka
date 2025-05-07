@@ -69,7 +69,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'my_questions.templatetags.context_processors.is_debug',
-                'my_questions.templatetags.context_processors.question_part_names'
+                'my_questions.templatetags.context_processors.question_part_names',
+                'my_questions.templatetags.context_processors.control_element_names',
+                'my_questions.templatetags.context_processors.terms',
             ],
         },
     },

@@ -7,10 +7,10 @@
 {% endblock %}
 
 {% block content %}
-<h2>Тесты</h2>
 <div class="container-fluid">
+  <h2>Тесты</h2>
   <div class="row">
-    <div class="col-6">
+    <div class="col-12">
       {% for test in tests %}
         {% include 'my_questions/parts/test-widget-in-list.html' with test=test %}
       {% endfor %}

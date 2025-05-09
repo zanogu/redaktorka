@@ -17,20 +17,14 @@
     <div class="col-6">
       <form id="test-form" enctype="multipart/form-data" method="post" action="{% url 'my_questions:edit_test_backend' %}">
         {% csrf_token %}
-
-
           <div class="test-title">
             {% if test.id %}
               <input type="hidden" name="test-id" id="test-id" value="{{test.id}}">
             {% endif %}
             <label>{{question_part_names.test_title}}</label>
             <input type="text" id="test-name" name="test-name" {% if test.name %} value="{{test.name}}" {% endif %}>
+            {{test_form.tournament}}
           </div>
-
-
-          <button form="test-form" type="submit" value="Submit">{{control_element_names.submit}}</button>
-
-
       </form>
     </div>
     <div class="col-6">
@@ -67,7 +61,6 @@
       </div>
     </div>
 
-
     <div id="tabs-t">
       <div class="row">
         <div class="col-6">
@@ -103,6 +96,7 @@
         } else if (this.id === "question-basket") {
           ui.item.find("input").removeAttr("form");
         }
+        $(this).trigger( "questionAmountChanged")
       }
     }).disableSelection();
 
@@ -115,21 +109,24 @@
         } else if (this.id === "tester-basket") {
           ui.item.find("input").removeAttr("form");
         }
+        $(this).trigger( "questionAmountChanged")
+
       }
     }).disableSelection();
 
     $( ".accordion" ).accordion({
       collapsible: true,
-      active:false
+      active:false,
+      header: function ( accordionElement ) {
+        return accordionElement.find( "h3" );
+      }
     });
 
     $( "#tabs" ).tabs();
-
-
   } );
-
-
 </script>
+{% endblock %}
 
-
+{% block bottom_bar %}
+    {% include "my_questions/parts/bottom-bar-edit-test.html" with form="test-form" %}
 {% endblock %}

@@ -1,0 +1,46 @@
+{% extends "my_questions/base.html"%}
+{% load static %}
+{% load my_questions_extras %}
+
+{% block title %}
+Турниры
+{% endblock %}
+
+{% block content %}
+<h2>Турниры</h2>
+<div class="container-fluid">
+  <div class="row">
+
+    <div class="col-6">
+      <div data-tour="{}">Новый Турнир</div>
+      {% for tour in tournaments %}
+        <div data-tour="{{tour|model_to_dict_filter}}">{{tour.name}}</div>
+      {% endfor %}
+    </div>
+    <div class="col-6">
+      <form method="post" action="{% url 'my_questions:edit_tournament_backend' %}">
+        {% csrf_token %}
+        <input type="hidden" name="id" id="id_id" value="">
+          {{tournament_form}}
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+$(document).ready(function() {
+  $('[data-tour]').on('click', function() {
+    // Get the JSON string and parse it
+    const tourData = $(this).attr('data-tour');
+    const parsedData = JSON.parse(tourData);
+
+    // Fill in the form fields
+    $('#id_id').val(parsedData.id);
+    $('#id_tournament_rating_id').val(parsedData.tournament_rating_id);
+    $('#id_name').val(parsedData.name);
+  });
+});
+</script>
+
+{% endblock %}

@@ -328,6 +328,7 @@ def create_test_view(request):
                    "my_questions/edit_test.html",
                       {
                           'quests': quests,
+                          'test_form': EditTestForm(),
                           'quests_tested':[],
                           'testers': testers,
                           'testers_tested':[],
@@ -360,12 +361,14 @@ def edit_test_view(request, test_id: int):
                    "my_questions/edit_test.html",
                       {
                           'test':test,
+                          'test_form': EditTestForm(instance=test),
                           'quests': quests_not_in_test,
                           'quests_tested':quests_in_test,
                           'testers': testers_not_in_test,
                           'testers_tested': testers_in_test,
                           'versions': [],
-                          'versions_tested': versions_in_test
+                          'versions_tested': versions_in_test,
+
                       }
                    )
 
@@ -392,6 +395,14 @@ def edit_test_backend(request):
                              )
             test.save()
             test.user.add(request.user)
+
+            test.tournament.clear()
+            for t in Tournament.objects.filter(
+                    user=request.user,
+                    pk__in=request.POST.getlist("tournament")
+            ):
+                test.tournament.add(t)
+
 
             test.question.clear()
             i = 0
@@ -427,7 +438,7 @@ def edit_test_backend(request):
             ):
                 t.test.add(test)
 
-    return redirect("my_questions:test_list_view")
+    return redirect("my_questions:edit_test_view", test_id = test.id)
 
 # Shows test in a readable form
 # ready for testing and evaluation
@@ -436,7 +447,6 @@ def edit_test_backend(request):
 def show_test_view(request, test_id: int):
     test = get_object_or_404(Test, pk=test_id)
     test_dict = Renderer.test_to_list(test)
-    print("Test dict", test_dict)
     return render(
        request,
        "my_questions/show_test_view.html",
@@ -533,6 +543,43 @@ def save_is_answered_backend(request):
     else:
         return HttpResponseBadRequest('Invalid request')
 
+#Hadles reordering questions in test view AJAX
+@login_required
+def update_question_order_backend(request):
+    is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
+    print(request.POST)
+    print(request.POST.getlist("order[]"))
+    if not is_ajax:
+        return HttpResponseBadRequest('Invalid request')
+
+    if request.method != 'POST':
+        return JsonResponse({'status': 'Invalid request'}, status=400)
+
+    # test_question_record = get_object_or_404(Test, pk=request.POST.get("test"))
+    with (transaction.atomic()):
+        for i, q in enumerate(request.POST.getlist("order[]")):
+            print(q, request.POST.get("test") )
+
+            test_question_record = get_object_or_404(
+                TestQuestion,
+                test_id=int(request.POST.get("test")),
+                question_id=int(q)
+            )
+            print(test_question_record)
+
+            # Check if user is allowed to change the data
+            if request.user not in test_question_record.question.user.all():
+                return HttpResponseBadRequest('Invalid request')
+
+            test_question_record.order = i
+            print(test_question_record)
+            test_question_record.save()
+    print("Greatsuccess")
+
+    return JsonResponse({'status': 'Success'})
+
+
+
 # TESTERS
 
 # Shows list of testers with add/edit form
@@ -562,3 +609,33 @@ def edit_tester_backend(request):
         tester.save()
 
     return redirect("my_questions:testers_view")
+
+# TOURNAMENTS
+
+# Shows list of testers with add/edit form
+@login_required
+def tournaments_view(request):
+    tournaments = Tournament.objects.filter(user = request.user)
+    return render(request,
+                  "my_questions/tournaments_view.html",
+                  {"tournaments": tournaments,
+                   "tournament_form": EditTournamentForm()})
+
+# Handles add/edit form from testers_view
+@login_required
+def edit_tournament_backend(request):
+    if request.method != 'POST':
+        return HttpResponseRedirect("404")
+
+    print(request.POST)
+    tournament_form = EditTournamentForm(request.POST)
+    if tournament_form.is_valid():
+        tournament = tournament_form.save(commit=False)
+        if request.POST.get('id') and request.POST.get('id') != "":
+            print("ID", request.POST.get('id'))
+            tournament.id = int(request.POST.get('id'))
+        tournament.save()
+        tournament.user.set([request.user])
+        tournament.save()
+
+    return redirect("my_questions:tournaments_view")

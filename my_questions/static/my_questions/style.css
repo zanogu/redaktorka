@@ -4,7 +4,6 @@
  * Copyright 2011-2025 The Bootstrap Authors
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
-@import url("https://fonts.googleapis.com/css2?family=PT+Sans+Narrow:wght@400;700&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 :root,
 [data-bs-theme=light] {
   --bs-blue: #0d6efd;
@@ -215,7 +214,8 @@ hr {
   opacity: 0.25;
 }
 
-h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
+h6, .h6, h5, .h5, h4, .list-t-block .list-t-header .list-t-tournament,
+.list-q-block .list-t-header .list-t-tournament, .h4, h3, .h3, h2, .h2, h1, .h1 {
   margin-top: 0;
   margin-bottom: 0.5rem;
   font-weight: 500;
@@ -250,11 +250,13 @@ h3, .h3 {
   }
 }
 
-h4, .h4 {
+h4, .list-t-block .list-t-header .list-t-tournament,
+.list-q-block .list-t-header .list-t-tournament, .h4 {
   font-size: calc(1.275rem + 0.3vw);
 }
 @media (min-width: 1200px) {
-  h4, .h4 {
+  h4, .list-t-block .list-t-header .list-t-tournament,
+  .list-q-block .list-t-header .list-t-tournament, .h4 {
     font-size: 1.5rem;
   }
 }
@@ -2323,7 +2325,7 @@ textarea.form-control-lg {
   padding-left: 1.5em;
   margin-bottom: 0.125rem;
 }
-.form-check .form-check-input {
+.form-check .form-check-input, .form-check input[type=checkbox] {
   float: left;
   margin-left: -1.5em;
 }
@@ -2333,13 +2335,13 @@ textarea.form-control-lg {
   padding-left: 0;
   text-align: right;
 }
-.form-check-reverse .form-check-input {
+.form-check-reverse .form-check-input, .form-check-reverse input[type=checkbox] {
   float: right;
   margin-right: -1.5em;
   margin-left: 0;
 }
 
-.form-check-input {
+.form-check-input, input[type=checkbox] {
   --bs-form-check-bg: var(--bs-body-bg);
   flex-shrink: 0;
   width: 1em;
@@ -2355,41 +2357,41 @@ textarea.form-control-lg {
   border: var(--bs-border-width) solid var(--bs-border-color);
   print-color-adjust: exact;
 }
-.form-check-input[type=checkbox] {
+.form-check-input[type=checkbox], input[type=checkbox] {
   border-radius: 0.25em;
 }
-.form-check-input[type=radio] {
+.form-check-input[type=radio], input[type=radio][type=checkbox] {
   border-radius: 50%;
 }
-.form-check-input:active {
+.form-check-input:active, input[type=checkbox]:active {
   filter: brightness(90%);
 }
-.form-check-input:focus {
+.form-check-input:focus, input[type=checkbox]:focus {
   border-color: rgb(134, 182.5, 254);
   outline: 0;
   box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
 }
-.form-check-input:checked {
+.form-check-input:checked, input[type=checkbox]:checked {
   background-color: #0d6efd;
   border-color: #0d6efd;
 }
-.form-check-input:checked[type=checkbox] {
+.form-check-input:checked[type=checkbox], input:checked[type=checkbox] {
   --bs-form-check-bg-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e");
 }
-.form-check-input:checked[type=radio] {
+.form-check-input:checked[type=radio], input[type=checkbox]:checked[type=radio] {
   --bs-form-check-bg-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='2' fill='%23fff'/%3e%3c/svg%3e");
 }
-.form-check-input[type=checkbox]:indeterminate {
+.form-check-input[type=checkbox]:indeterminate, input[type=checkbox]:indeterminate {
   background-color: #0d6efd;
   border-color: #0d6efd;
   --bs-form-check-bg-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10h8'/%3e%3c/svg%3e");
 }
-.form-check-input:disabled {
+.form-check-input:disabled, input[type=checkbox]:disabled {
   pointer-events: none;
   filter: none;
   opacity: 0.5;
 }
-.form-check-input[disabled] ~ .form-check-label, .form-check-input:disabled ~ .form-check-label {
+.form-check-input[disabled] ~ .form-check-label, input[disabled][type=checkbox] ~ .form-check-label, .form-check-input:disabled ~ .form-check-label, input[type=checkbox]:disabled ~ .form-check-label {
   cursor: default;
   opacity: 0.5;
 }
@@ -2397,7 +2399,7 @@ textarea.form-control-lg {
 .form-switch {
   padding-left: 2.5em;
 }
-.form-switch .form-check-input {
+.form-switch .form-check-input, .form-switch input[type=checkbox] {
   --bs-form-switch-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba%280, 0, 0, 0.25%29'/%3e%3c/svg%3e");
   width: 2em;
   margin-left: -2.5em;
@@ -2407,14 +2409,14 @@ textarea.form-control-lg {
   transition: background-position 0.15s ease-in-out;
 }
 @media (prefers-reduced-motion: reduce) {
-  .form-switch .form-check-input {
+  .form-switch .form-check-input, .form-switch input[type=checkbox] {
     transition: none;
   }
 }
-.form-switch .form-check-input:focus {
+.form-switch .form-check-input:focus, .form-switch input[type=checkbox]:focus {
   --bs-form-switch-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgb%28134, 182.5, 254%29'/%3e%3c/svg%3e");
 }
-.form-switch .form-check-input:checked {
+.form-switch .form-check-input:checked, .form-switch input[type=checkbox]:checked {
   background-position: right center;
   --bs-form-switch-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e");
 }
@@ -2422,7 +2424,7 @@ textarea.form-control-lg {
   padding-right: 2.5em;
   padding-left: 0;
 }
-.form-switch.form-check-reverse .form-check-input {
+.form-switch.form-check-reverse .form-check-input, .form-switch.form-check-reverse input[type=checkbox] {
   margin-right: -2.5em;
   margin-left: 0;
 }
@@ -2440,18 +2442,18 @@ textarea.form-control-lg {
 .btn-check[disabled] + .btn, .list-t-block .controls > div .btn-check[disabled] + a,
 .list-t-block .controls > div .btn-check[disabled] + button,
 .list-q-block .controls > div .btn-check[disabled] + a,
-.list-q-block .controls > div .btn-check[disabled] + button, .bottom-bar .btn-check[disabled] + a, .btn-check[disabled] + input[type=submit],
+.list-q-block .controls > div .btn-check[disabled] + button, .test-output-q-header > div .btn-check[disabled] + a, .test-output-header > div .btn-check[disabled] + a, .bottom-bar .btn-check[disabled] + a, .btn-check[disabled] + input[type=submit],
 .btn-check[disabled] + button, .btn-check:disabled + .btn, .list-t-block .controls > div .btn-check:disabled + a,
 .list-t-block .controls > div .btn-check:disabled + button,
 .list-q-block .controls > div .btn-check:disabled + a,
-.list-q-block .controls > div .btn-check:disabled + button, .bottom-bar .btn-check:disabled + a, .btn-check:disabled + input[type=submit],
+.list-q-block .controls > div .btn-check:disabled + button, .test-output-q-header > div .btn-check:disabled + a, .test-output-header > div .btn-check:disabled + a, .bottom-bar .btn-check:disabled + a, .btn-check:disabled + input[type=submit],
 .btn-check:disabled + button {
   pointer-events: none;
   filter: none;
   opacity: 0.65;
 }
 
-[data-bs-theme=dark] .form-switch .form-check-input:not(:checked):not(:focus) {
+[data-bs-theme=dark] .form-switch .form-check-input:not(:checked):not(:focus), [data-bs-theme=dark] .form-switch input[type=checkbox]:not(:checked):not(:focus) {
   --bs-form-switch-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba%28255, 255, 255, 0.25%29'/%3e%3c/svg%3e");
 }
 
@@ -2659,7 +2661,7 @@ textarea.form-control-lg {
 .input-group .list-q-block .controls > div a,
 .list-q-block .controls > div .input-group a,
 .input-group .list-q-block .controls > div button,
-.list-q-block .controls > div .input-group button, .input-group .bottom-bar a, .bottom-bar .input-group a, .input-group input[type=submit],
+.list-q-block .controls > div .input-group button, .input-group .test-output-q-header > div a, .test-output-q-header > div .input-group a, .input-group .test-output-header > div a, .test-output-header > div .input-group a, .input-group .bottom-bar a, .bottom-bar .input-group a, .input-group input[type=submit],
 .input-group button {
   position: relative;
   z-index: 2;
@@ -2670,7 +2672,7 @@ textarea.form-control-lg {
 .input-group .list-q-block .controls > div a:focus,
 .list-q-block .controls > div .input-group a:focus,
 .input-group .list-q-block .controls > div button:focus,
-.list-q-block .controls > div .input-group button:focus, .input-group .bottom-bar a:focus, .bottom-bar .input-group a:focus, .input-group input[type=submit]:focus,
+.list-q-block .controls > div .input-group button:focus, .input-group .test-output-q-header > div a:focus, .test-output-q-header > div .input-group a:focus, .input-group .test-output-header > div a:focus, .test-output-header > div .input-group a:focus, .input-group .bottom-bar a:focus, .bottom-bar .input-group a:focus, .input-group input[type=submit]:focus,
 .input-group button:focus {
   z-index: 5;
 }
@@ -2699,6 +2701,8 @@ textarea.form-control-lg {
 .list-t-block .controls > div .input-group-lg > button,
 .list-q-block .controls > div .input-group-lg > a,
 .list-q-block .controls > div .input-group-lg > button,
+.test-output-q-header > div .input-group-lg > a,
+.test-output-header > div .input-group-lg > a,
 .bottom-bar .input-group-lg > a,
 .input-group-lg > input[type=submit],
 .input-group-lg > button {
@@ -2716,6 +2720,8 @@ textarea.form-control-lg {
 .list-t-block .controls > div .input-group-sm > button,
 .list-q-block .controls > div .input-group-sm > a,
 .list-q-block .controls > div .input-group-sm > button,
+.test-output-q-header > div .input-group-sm > a,
+.test-output-header > div .input-group-sm > a,
 .bottom-bar .input-group-sm > a,
 .input-group-sm > input[type=submit],
 .input-group-sm > button {
@@ -2833,20 +2839,20 @@ textarea.form-control-lg {
   width: calc(3rem + calc(1.5em + 0.75rem));
 }
 
-.was-validated .form-check-input:valid, .form-check-input.is-valid {
+.was-validated .form-check-input:valid, .was-validated input[type=checkbox]:valid, .form-check-input.is-valid, input.is-valid[type=checkbox] {
   border-color: var(--bs-form-valid-border-color);
 }
-.was-validated .form-check-input:valid:checked, .form-check-input.is-valid:checked {
+.was-validated .form-check-input:valid:checked, .was-validated input[type=checkbox]:valid:checked, .form-check-input.is-valid:checked, input.is-valid[type=checkbox]:checked {
   background-color: var(--bs-form-valid-color);
 }
-.was-validated .form-check-input:valid:focus, .form-check-input.is-valid:focus {
+.was-validated .form-check-input:valid:focus, .was-validated input[type=checkbox]:valid:focus, .form-check-input.is-valid:focus, input.is-valid[type=checkbox]:focus {
   box-shadow: 0 0 0 0.25rem rgba(var(--bs-success-rgb), 0.25);
 }
-.was-validated .form-check-input:valid ~ .form-check-label, .form-check-input.is-valid ~ .form-check-label {
+.was-validated .form-check-input:valid ~ .form-check-label, .was-validated input[type=checkbox]:valid ~ .form-check-label, .form-check-input.is-valid ~ .form-check-label, input.is-valid[type=checkbox] ~ .form-check-label {
   color: var(--bs-form-valid-color);
 }
 
-.form-check-inline .form-check-input ~ .valid-feedback {
+.form-check-inline .form-check-input ~ .valid-feedback, .form-check-inline input[type=checkbox] ~ .valid-feedback {
   margin-left: 0.5em;
 }
 
@@ -2925,20 +2931,20 @@ textarea.form-control-lg {
   width: calc(3rem + calc(1.5em + 0.75rem));
 }
 
-.was-validated .form-check-input:invalid, .form-check-input.is-invalid {
+.was-validated .form-check-input:invalid, .was-validated input[type=checkbox]:invalid, .form-check-input.is-invalid, input.is-invalid[type=checkbox] {
   border-color: var(--bs-form-invalid-border-color);
 }
-.was-validated .form-check-input:invalid:checked, .form-check-input.is-invalid:checked {
+.was-validated .form-check-input:invalid:checked, .was-validated input[type=checkbox]:invalid:checked, .form-check-input.is-invalid:checked, input.is-invalid[type=checkbox]:checked {
   background-color: var(--bs-form-invalid-color);
 }
-.was-validated .form-check-input:invalid:focus, .form-check-input.is-invalid:focus {
+.was-validated .form-check-input:invalid:focus, .was-validated input[type=checkbox]:invalid:focus, .form-check-input.is-invalid:focus, input.is-invalid[type=checkbox]:focus {
   box-shadow: 0 0 0 0.25rem rgba(var(--bs-danger-rgb), 0.25);
 }
-.was-validated .form-check-input:invalid ~ .form-check-label, .form-check-input.is-invalid ~ .form-check-label {
+.was-validated .form-check-input:invalid ~ .form-check-label, .was-validated input[type=checkbox]:invalid ~ .form-check-label, .form-check-input.is-invalid ~ .form-check-label, input.is-invalid[type=checkbox] ~ .form-check-label {
   color: var(--bs-form-invalid-color);
 }
 
-.form-check-inline .form-check-input ~ .invalid-feedback {
+.form-check-inline .form-check-input ~ .invalid-feedback, .form-check-inline input[type=checkbox] ~ .invalid-feedback {
   margin-left: 0.5em;
 }
 
@@ -2955,7 +2961,7 @@ textarea.form-control-lg {
 .btn, .list-t-block .controls > div a,
 .list-t-block .controls > div button,
 .list-q-block .controls > div a,
-.list-q-block .controls > div button, .bottom-bar a, input[type=submit],
+.list-q-block .controls > div button, .test-output-q-header > div a, .test-output-header > div a, .bottom-bar a, input[type=submit],
 button {
   --bs-btn-padding-x: 0.75rem;
   --bs-btn-padding-y: 0.375rem;
@@ -2993,7 +2999,7 @@ button {
   .btn, .list-t-block .controls > div a,
   .list-t-block .controls > div button,
   .list-q-block .controls > div a,
-  .list-q-block .controls > div button, .bottom-bar a, input[type=submit],
+  .list-q-block .controls > div button, .test-output-q-header > div a, .test-output-header > div a, .bottom-bar a, input[type=submit],
   button {
     transition: none;
   }
@@ -3001,7 +3007,7 @@ button {
 .btn:hover, .list-t-block .controls > div a:hover,
 .list-t-block .controls > div button:hover,
 .list-q-block .controls > div a:hover,
-.list-q-block .controls > div button:hover, .bottom-bar a:hover, input[type=submit]:hover,
+.list-q-block .controls > div button:hover, .test-output-q-header > div a:hover, .test-output-header > div a:hover, .bottom-bar a:hover, input[type=submit]:hover,
 button:hover {
   color: var(--bs-btn-hover-color);
   background-color: var(--bs-btn-hover-bg);
@@ -3010,7 +3016,7 @@ button:hover {
 .btn-check + .btn:hover, .list-t-block .controls > div .btn-check + a:hover,
 .list-t-block .controls > div .btn-check + button:hover,
 .list-q-block .controls > div .btn-check + a:hover,
-.list-q-block .controls > div .btn-check + button:hover, .bottom-bar .btn-check + a:hover, .btn-check + input[type=submit]:hover,
+.list-q-block .controls > div .btn-check + button:hover, .test-output-q-header > div .btn-check + a:hover, .test-output-header > div .btn-check + a:hover, .bottom-bar .btn-check + a:hover, .btn-check + input[type=submit]:hover,
 .btn-check + button:hover {
   color: var(--bs-btn-color);
   background-color: var(--bs-btn-bg);
@@ -3019,7 +3025,7 @@ button:hover {
 .btn:focus-visible, .list-t-block .controls > div a:focus-visible,
 .list-t-block .controls > div button:focus-visible,
 .list-q-block .controls > div a:focus-visible,
-.list-q-block .controls > div button:focus-visible, .bottom-bar a:focus-visible, input[type=submit]:focus-visible,
+.list-q-block .controls > div button:focus-visible, .test-output-q-header > div a:focus-visible, .test-output-header > div a:focus-visible, .bottom-bar a:focus-visible, input[type=submit]:focus-visible,
 button:focus-visible {
   color: var(--bs-btn-hover-color);
   background-color: var(--bs-btn-hover-bg);
@@ -3030,7 +3036,7 @@ button:focus-visible {
 .btn-check:focus-visible + .btn, .list-t-block .controls > div .btn-check:focus-visible + a,
 .list-t-block .controls > div .btn-check:focus-visible + button,
 .list-q-block .controls > div .btn-check:focus-visible + a,
-.list-q-block .controls > div .btn-check:focus-visible + button, .bottom-bar .btn-check:focus-visible + a, .btn-check:focus-visible + input[type=submit],
+.list-q-block .controls > div .btn-check:focus-visible + button, .test-output-q-header > div .btn-check:focus-visible + a, .test-output-header > div .btn-check:focus-visible + a, .bottom-bar .btn-check:focus-visible + a, .btn-check:focus-visible + input[type=submit],
 .btn-check:focus-visible + button {
   border-color: var(--bs-btn-hover-border-color);
   outline: 0;
@@ -3039,65 +3045,65 @@ button:focus-visible {
 .btn-check:checked + .btn, .list-t-block .controls > div .btn-check:checked + a,
 .list-t-block .controls > div .btn-check:checked + button,
 .list-q-block .controls > div .btn-check:checked + a,
-.list-q-block .controls > div .btn-check:checked + button, .bottom-bar .btn-check:checked + a, .btn-check:checked + input[type=submit],
+.list-q-block .controls > div .btn-check:checked + button, .test-output-q-header > div .btn-check:checked + a, .test-output-header > div .btn-check:checked + a, .bottom-bar .btn-check:checked + a, .btn-check:checked + input[type=submit],
 .btn-check:checked + button, :not(.btn-check) + .btn:active, .list-t-block .controls > div :not(.btn-check) + a:active,
 .list-t-block .controls > div :not(.btn-check) + button:active,
 .list-q-block .controls > div :not(.btn-check) + a:active,
-.list-q-block .controls > div :not(.btn-check) + button:active, .bottom-bar :not(.btn-check) + a:active, :not(.btn-check) + input[type=submit]:active,
+.list-q-block .controls > div :not(.btn-check) + button:active, .test-output-q-header > div :not(.btn-check) + a:active, .test-output-header > div :not(.btn-check) + a:active, .bottom-bar :not(.btn-check) + a:active, :not(.btn-check) + input[type=submit]:active,
 :not(.btn-check) + button:active, .btn:first-child:active, .list-t-block .controls > div a:first-child:active,
 .list-t-block .controls > div button:first-child:active,
 .list-q-block .controls > div a:first-child:active,
-.list-q-block .controls > div button:first-child:active, .bottom-bar a:first-child:active, input[type=submit]:first-child:active,
+.list-q-block .controls > div button:first-child:active, .test-output-q-header > div a:first-child:active, .test-output-header > div a:first-child:active, .bottom-bar a:first-child:active, input[type=submit]:first-child:active,
 button:first-child:active, .btn.active, .list-t-block .controls > div a.active,
 .list-t-block .controls > div button.active,
 .list-q-block .controls > div a.active,
-.list-q-block .controls > div button.active, .bottom-bar a.active, input.active[type=submit],
+.list-q-block .controls > div button.active, .test-output-q-header > div a.active, .test-output-header > div a.active, .bottom-bar a.active, input.active[type=submit],
 button.active, .btn.show, .list-t-block .controls > div a.show,
 .list-t-block .controls > div button.show,
 .list-q-block .controls > div a.show,
-.list-q-block .controls > div button.show, .bottom-bar a.show, input.show[type=submit],
+.list-q-block .controls > div button.show, .test-output-q-header > div a.show, .test-output-header > div a.show, .bottom-bar a.show, input.show[type=submit],
 button.show {
   color: var(--bs-btn-active-color);
   background-color: var(--bs-btn-active-bg);
   border-color: var(--bs-btn-active-border-color);
 }
 .btn-check:checked + .btn:focus-visible, .list-t-block .controls > div .btn-check:checked + a:focus-visible,
-.list-q-block .controls > div .btn-check:checked + a:focus-visible, .bottom-bar .btn-check:checked + a:focus-visible, .btn-check:checked + input[type=submit]:focus-visible,
+.list-q-block .controls > div .btn-check:checked + a:focus-visible, .test-output-q-header > div .btn-check:checked + a:focus-visible, .test-output-header > div .btn-check:checked + a:focus-visible, .bottom-bar .btn-check:checked + a:focus-visible, .btn-check:checked + input[type=submit]:focus-visible,
 .btn-check:checked + button:focus-visible, :not(.btn-check) + .btn:active:focus-visible, .list-t-block .controls > div :not(.btn-check) + a:active:focus-visible,
-.list-q-block .controls > div :not(.btn-check) + a:active:focus-visible, .bottom-bar :not(.btn-check) + a:active:focus-visible, :not(.btn-check) + input[type=submit]:active:focus-visible,
+.list-q-block .controls > div :not(.btn-check) + a:active:focus-visible, .test-output-q-header > div :not(.btn-check) + a:active:focus-visible, .test-output-header > div :not(.btn-check) + a:active:focus-visible, .bottom-bar :not(.btn-check) + a:active:focus-visible, :not(.btn-check) + input[type=submit]:active:focus-visible,
 :not(.btn-check) + button:active:focus-visible, .btn:first-child:active:focus-visible, .list-t-block .controls > div a:first-child:active:focus-visible,
-.list-q-block .controls > div a:first-child:active:focus-visible, .bottom-bar a:first-child:active:focus-visible, input[type=submit]:first-child:active:focus-visible,
+.list-q-block .controls > div a:first-child:active:focus-visible, .test-output-q-header > div a:first-child:active:focus-visible, .test-output-header > div a:first-child:active:focus-visible, .bottom-bar a:first-child:active:focus-visible, input[type=submit]:first-child:active:focus-visible,
 button:first-child:active:focus-visible, .btn.active:focus-visible, .list-t-block .controls > div a.active:focus-visible,
 .list-t-block .controls > div button.active:focus-visible,
 .list-q-block .controls > div a.active:focus-visible,
-.list-q-block .controls > div button.active:focus-visible, .bottom-bar a.active:focus-visible, input.active[type=submit]:focus-visible,
+.list-q-block .controls > div button.active:focus-visible, .test-output-q-header > div a.active:focus-visible, .test-output-header > div a.active:focus-visible, .bottom-bar a.active:focus-visible, input.active[type=submit]:focus-visible,
 button.active:focus-visible, .btn.show:focus-visible, .list-t-block .controls > div a.show:focus-visible,
 .list-t-block .controls > div button.show:focus-visible,
 .list-q-block .controls > div a.show:focus-visible,
-.list-q-block .controls > div button.show:focus-visible, .bottom-bar a.show:focus-visible, input.show[type=submit]:focus-visible,
+.list-q-block .controls > div button.show:focus-visible, .test-output-q-header > div a.show:focus-visible, .test-output-header > div a.show:focus-visible, .bottom-bar a.show:focus-visible, input.show[type=submit]:focus-visible,
 button.show:focus-visible {
   box-shadow: var(--bs-btn-focus-box-shadow);
 }
 .btn-check:checked:focus-visible + .btn, .list-t-block .controls > div .btn-check:checked:focus-visible + a,
-.list-q-block .controls > div .btn-check:checked:focus-visible + a, .bottom-bar .btn-check:checked:focus-visible + a, .btn-check:checked:focus-visible + input[type=submit],
+.list-q-block .controls > div .btn-check:checked:focus-visible + a, .test-output-q-header > div .btn-check:checked:focus-visible + a, .test-output-header > div .btn-check:checked:focus-visible + a, .bottom-bar .btn-check:checked:focus-visible + a, .btn-check:checked:focus-visible + input[type=submit],
 .btn-check:checked:focus-visible + button {
   box-shadow: var(--bs-btn-focus-box-shadow);
 }
 .btn:disabled, .list-t-block .controls > div a:disabled,
 .list-t-block .controls > div button:disabled,
 .list-q-block .controls > div a:disabled,
-.list-q-block .controls > div button:disabled, .bottom-bar a:disabled, input[type=submit]:disabled,
+.list-q-block .controls > div button:disabled, .test-output-q-header > div a:disabled, .test-output-header > div a:disabled, .bottom-bar a:disabled, input[type=submit]:disabled,
 button:disabled, .btn.disabled, .list-t-block .controls > div a.disabled,
 .list-t-block .controls > div button.disabled,
 .list-q-block .controls > div a.disabled,
-.list-q-block .controls > div button.disabled, .bottom-bar a.disabled, input.disabled[type=submit],
+.list-q-block .controls > div button.disabled, .test-output-q-header > div a.disabled, .test-output-header > div a.disabled, .bottom-bar a.disabled, input.disabled[type=submit],
 button.disabled, fieldset:disabled .btn, fieldset:disabled .list-t-block .controls > div a, .list-t-block .controls > div fieldset:disabled a,
 fieldset:disabled .list-t-block .controls > div button,
 .list-t-block .controls > div fieldset:disabled button,
 fieldset:disabled .list-q-block .controls > div a,
 .list-q-block .controls > div fieldset:disabled a,
 fieldset:disabled .list-q-block .controls > div button,
-.list-q-block .controls > div fieldset:disabled button, fieldset:disabled .bottom-bar a, .bottom-bar fieldset:disabled a, fieldset:disabled input[type=submit],
+.list-q-block .controls > div fieldset:disabled button, fieldset:disabled .test-output-q-header > div a, .test-output-q-header > div fieldset:disabled a, fieldset:disabled .test-output-header > div a, .test-output-header > div fieldset:disabled a, fieldset:disabled .bottom-bar a, .bottom-bar fieldset:disabled a, fieldset:disabled input[type=submit],
 fieldset:disabled button {
   color: var(--bs-btn-disabled-color);
   pointer-events: none;
@@ -3228,7 +3234,7 @@ fieldset:disabled button {
 .btn-dark, .list-t-block .controls > div a,
 .list-t-block .controls > div button,
 .list-q-block .controls > div a,
-.list-q-block .controls > div button, input[type=submit],
+.list-q-block .controls > div button, .test-output-q-header > div a, .test-output-header > div a, input[type=submit],
 button {
   --bs-btn-color: #fff;
   --bs-btn-bg: #212529;
@@ -3407,7 +3413,7 @@ button {
 .btn-lg, button[type=submit], .btn-group-lg > .btn, .list-t-block .controls > div .btn-group-lg > a,
 .list-t-block .controls > div .btn-group-lg > button,
 .list-q-block .controls > div .btn-group-lg > a,
-.list-q-block .controls > div .btn-group-lg > button, .bottom-bar .btn-group-lg > a, .btn-group-lg > input[type=submit],
+.list-q-block .controls > div .btn-group-lg > button, .test-output-q-header > div .btn-group-lg > a, .test-output-header > div .btn-group-lg > a, .bottom-bar .btn-group-lg > a, .btn-group-lg > input[type=submit],
 .btn-group-lg > button {
   --bs-btn-padding-y: 0.5rem;
   --bs-btn-padding-x: 1rem;
@@ -3418,7 +3424,7 @@ button {
 .btn-sm, .timer button, .list-t-block .controls > div a,
 .list-t-block .controls > div button,
 .list-q-block .controls > div a,
-.list-q-block .controls > div button, .btn-group-sm > .btn, .bottom-bar .btn-group-sm > a, .btn-group-sm > input[type=submit],
+.list-q-block .controls > div button, .btn-group-sm > .btn, .test-output-q-header > div .btn-group-sm > a, .test-output-header > div .btn-group-sm > a, .bottom-bar .btn-group-sm > a, .btn-group-sm > input[type=submit],
 .btn-group-sm > button {
   --bs-btn-padding-y: 0.25rem;
   --bs-btn-padding-x: 0.5rem;
@@ -3789,13 +3795,15 @@ button {
 .btn-group > .btn, .list-t-block .controls > div .btn-group > a,
 .list-t-block .controls > div .btn-group > button,
 .list-q-block .controls > div .btn-group > a,
-.list-q-block .controls > div .btn-group > button, .bottom-bar .btn-group > a, .btn-group > input[type=submit],
+.list-q-block .controls > div .btn-group > button, .test-output-q-header > div .btn-group > a, .test-output-header > div .btn-group > a, .bottom-bar .btn-group > a, .btn-group > input[type=submit],
 .btn-group > button,
 .btn-group-vertical > .btn,
 .list-t-block .controls > div .btn-group-vertical > a,
 .list-t-block .controls > div .btn-group-vertical > button,
 .list-q-block .controls > div .btn-group-vertical > a,
 .list-q-block .controls > div .btn-group-vertical > button,
+.test-output-q-header > div .btn-group-vertical > a,
+.test-output-header > div .btn-group-vertical > a,
 .bottom-bar .btn-group-vertical > a,
 .btn-group-vertical > input[type=submit],
 .btn-group-vertical > button {
@@ -3803,11 +3811,17 @@ button {
   flex: 1 1 auto;
 }
 .btn-group > .btn-check:checked + .btn, .list-t-block .controls > div .btn-group > .btn-check:checked + a,
-.list-q-block .controls > div .btn-group > .btn-check:checked + a, .bottom-bar .btn-group > .btn-check:checked + a, .btn-group > .btn-check:checked + input[type=submit],
+.list-t-block .controls > div .btn-group > .btn-check:checked + button,
+.list-q-block .controls > div .btn-group > .btn-check:checked + a,
+.list-q-block .controls > div .btn-group > .btn-check:checked + button, .test-output-q-header > div .btn-group > .btn-check:checked + a, .test-output-header > div .btn-group > .btn-check:checked + a, .bottom-bar .btn-group > .btn-check:checked + a, .btn-group > .btn-check:checked + input[type=submit],
 .btn-group > .btn-check:checked + button,
 .btn-group > .btn-check:focus + .btn,
 .list-t-block .controls > div .btn-group > .btn-check:focus + a,
+.list-t-block .controls > div .btn-group > .btn-check:focus + button,
 .list-q-block .controls > div .btn-group > .btn-check:focus + a,
+.list-q-block .controls > div .btn-group > .btn-check:focus + button,
+.test-output-q-header > div .btn-group > .btn-check:focus + a,
+.test-output-header > div .btn-group > .btn-check:focus + a,
 .bottom-bar .btn-group > .btn-check:focus + a,
 .btn-group > .btn-check:focus + input[type=submit],
 .btn-group > .btn-check:focus + button,
@@ -3816,6 +3830,8 @@ button {
 .list-t-block .controls > div .btn-group > button:hover,
 .list-q-block .controls > div .btn-group > a:hover,
 .list-q-block .controls > div .btn-group > button:hover,
+.test-output-q-header > div .btn-group > a:hover,
+.test-output-header > div .btn-group > a:hover,
 .bottom-bar .btn-group > a:hover,
 .btn-group > input[type=submit]:hover,
 .btn-group > button:hover,
@@ -3824,6 +3840,8 @@ button {
 .list-t-block .controls > div .btn-group > button:focus,
 .list-q-block .controls > div .btn-group > a:focus,
 .list-q-block .controls > div .btn-group > button:focus,
+.test-output-q-header > div .btn-group > a:focus,
+.test-output-header > div .btn-group > a:focus,
 .bottom-bar .btn-group > a:focus,
 .btn-group > input[type=submit]:focus,
 .btn-group > button:focus,
@@ -3832,6 +3850,8 @@ button {
 .list-t-block .controls > div .btn-group > button:active,
 .list-q-block .controls > div .btn-group > a:active,
 .list-q-block .controls > div .btn-group > button:active,
+.test-output-q-header > div .btn-group > a:active,
+.test-output-header > div .btn-group > a:active,
 .bottom-bar .btn-group > a:active,
 .btn-group > input[type=submit]:active,
 .btn-group > button:active,
@@ -3840,18 +3860,28 @@ button {
 .list-t-block .controls > div .btn-group > button.active,
 .list-q-block .controls > div .btn-group > a.active,
 .list-q-block .controls > div .btn-group > button.active,
+.test-output-q-header > div .btn-group > a.active,
+.test-output-header > div .btn-group > a.active,
 .bottom-bar .btn-group > a.active,
 .btn-group > input.active[type=submit],
 .btn-group > button.active,
 .btn-group-vertical > .btn-check:checked + .btn,
 .list-t-block .controls > div .btn-group-vertical > .btn-check:checked + a,
+.list-t-block .controls > div .btn-group-vertical > .btn-check:checked + button,
 .list-q-block .controls > div .btn-group-vertical > .btn-check:checked + a,
+.list-q-block .controls > div .btn-group-vertical > .btn-check:checked + button,
+.test-output-q-header > div .btn-group-vertical > .btn-check:checked + a,
+.test-output-header > div .btn-group-vertical > .btn-check:checked + a,
 .bottom-bar .btn-group-vertical > .btn-check:checked + a,
 .btn-group-vertical > .btn-check:checked + input[type=submit],
 .btn-group-vertical > .btn-check:checked + button,
 .btn-group-vertical > .btn-check:focus + .btn,
 .list-t-block .controls > div .btn-group-vertical > .btn-check:focus + a,
+.list-t-block .controls > div .btn-group-vertical > .btn-check:focus + button,
 .list-q-block .controls > div .btn-group-vertical > .btn-check:focus + a,
+.list-q-block .controls > div .btn-group-vertical > .btn-check:focus + button,
+.test-output-q-header > div .btn-group-vertical > .btn-check:focus + a,
+.test-output-header > div .btn-group-vertical > .btn-check:focus + a,
 .bottom-bar .btn-group-vertical > .btn-check:focus + a,
 .btn-group-vertical > .btn-check:focus + input[type=submit],
 .btn-group-vertical > .btn-check:focus + button,
@@ -3860,6 +3890,8 @@ button {
 .list-t-block .controls > div .btn-group-vertical > button:hover,
 .list-q-block .controls > div .btn-group-vertical > a:hover,
 .list-q-block .controls > div .btn-group-vertical > button:hover,
+.test-output-q-header > div .btn-group-vertical > a:hover,
+.test-output-header > div .btn-group-vertical > a:hover,
 .bottom-bar .btn-group-vertical > a:hover,
 .btn-group-vertical > input[type=submit]:hover,
 .btn-group-vertical > button:hover,
@@ -3868,6 +3900,8 @@ button {
 .list-t-block .controls > div .btn-group-vertical > button:focus,
 .list-q-block .controls > div .btn-group-vertical > a:focus,
 .list-q-block .controls > div .btn-group-vertical > button:focus,
+.test-output-q-header > div .btn-group-vertical > a:focus,
+.test-output-header > div .btn-group-vertical > a:focus,
 .bottom-bar .btn-group-vertical > a:focus,
 .btn-group-vertical > input[type=submit]:focus,
 .btn-group-vertical > button:focus,
@@ -3876,6 +3910,8 @@ button {
 .list-t-block .controls > div .btn-group-vertical > button:active,
 .list-q-block .controls > div .btn-group-vertical > a:active,
 .list-q-block .controls > div .btn-group-vertical > button:active,
+.test-output-q-header > div .btn-group-vertical > a:active,
+.test-output-header > div .btn-group-vertical > a:active,
 .bottom-bar .btn-group-vertical > a:active,
 .btn-group-vertical > input[type=submit]:active,
 .btn-group-vertical > button:active,
@@ -3884,6 +3920,8 @@ button {
 .list-t-block .controls > div .btn-group-vertical > button.active,
 .list-q-block .controls > div .btn-group-vertical > a.active,
 .list-q-block .controls > div .btn-group-vertical > button.active,
+.test-output-q-header > div .btn-group-vertical > a.active,
+.test-output-header > div .btn-group-vertical > a.active,
 .bottom-bar .btn-group-vertical > a.active,
 .btn-group-vertical > input.active[type=submit],
 .btn-group-vertical > button.active {
@@ -3903,23 +3941,27 @@ button {
   border-radius: var(--bs-border-radius);
 }
 .btn-group > :not(.btn-check:first-child) + .btn, .list-t-block .controls > div .btn-group > :not(.btn-check:first-child) + a,
-.list-q-block .controls > div .btn-group > :not(.btn-check:first-child) + a, .bottom-bar .btn-group > :not(.btn-check:first-child) + a, .btn-group > :not(.btn-check:first-child) + input[type=submit],
+.list-q-block .controls > div .btn-group > :not(.btn-check:first-child) + a, .test-output-q-header > div .btn-group > :not(.btn-check:first-child) + a, .test-output-header > div .btn-group > :not(.btn-check:first-child) + a, .bottom-bar .btn-group > :not(.btn-check:first-child) + a, .btn-group > :not(.btn-check:first-child) + input[type=submit],
 .btn-group > :not(.btn-check:first-child) + button,
 .btn-group > .btn-group:not(:first-child) {
   margin-left: calc(-1 * var(--bs-border-width));
 }
 .btn-group > .btn:not(:last-child):not(.dropdown-toggle), .list-t-block .controls > div .btn-group > a:not(:last-child):not(.dropdown-toggle),
-.list-q-block .controls > div .btn-group > a:not(:last-child):not(.dropdown-toggle), .bottom-bar .btn-group > a:not(:last-child):not(.dropdown-toggle), .btn-group > input[type=submit]:not(:last-child):not(.dropdown-toggle),
+.list-q-block .controls > div .btn-group > a:not(:last-child):not(.dropdown-toggle), .test-output-q-header > div .btn-group > a:not(:last-child):not(.dropdown-toggle), .test-output-header > div .btn-group > a:not(:last-child):not(.dropdown-toggle), .bottom-bar .btn-group > a:not(:last-child):not(.dropdown-toggle), .btn-group > input[type=submit]:not(:last-child):not(.dropdown-toggle),
 .btn-group > button:not(:last-child):not(.dropdown-toggle),
 .btn-group > .btn.dropdown-toggle-split:first-child,
 .list-t-block .controls > div .btn-group > a.dropdown-toggle-split:first-child,
 .list-q-block .controls > div .btn-group > a.dropdown-toggle-split:first-child,
+.test-output-q-header > div .btn-group > a.dropdown-toggle-split:first-child,
+.test-output-header > div .btn-group > a.dropdown-toggle-split:first-child,
 .bottom-bar .btn-group > a.dropdown-toggle-split:first-child,
 .btn-group > input.dropdown-toggle-split[type=submit]:first-child,
 .btn-group > button.dropdown-toggle-split:first-child,
 .btn-group > .btn-group:not(:last-child) > .btn,
 .list-t-block .controls > div .btn-group > .btn-group:not(:last-child) > a,
 .list-q-block .controls > div .btn-group > .btn-group:not(:last-child) > a,
+.test-output-q-header > div .btn-group > .btn-group:not(:last-child) > a,
+.test-output-header > div .btn-group > .btn-group:not(:last-child) > a,
 .bottom-bar .btn-group > .btn-group:not(:last-child) > a,
 .btn-group > .btn-group:not(:last-child) > input[type=submit],
 .btn-group > .btn-group:not(:last-child) > button {
@@ -3929,19 +3971,23 @@ button {
 .btn-group > .btn:nth-child(n+3), .list-t-block .controls > div .btn-group > a:nth-child(n+3),
 .list-t-block .controls > div .btn-group > button:nth-child(n+3),
 .list-q-block .controls > div .btn-group > a:nth-child(n+3),
-.list-q-block .controls > div .btn-group > button:nth-child(n+3), .bottom-bar .btn-group > a:nth-child(n+3), .btn-group > input[type=submit]:nth-child(n+3),
+.list-q-block .controls > div .btn-group > button:nth-child(n+3), .test-output-q-header > div .btn-group > a:nth-child(n+3), .test-output-header > div .btn-group > a:nth-child(n+3), .bottom-bar .btn-group > a:nth-child(n+3), .btn-group > input[type=submit]:nth-child(n+3),
 .btn-group > button:nth-child(n+3),
 .btn-group > :not(.btn-check) + .btn,
 .list-t-block .controls > div .btn-group > :not(.btn-check) + a,
 .list-t-block .controls > div .btn-group > :not(.btn-check) + button,
 .list-q-block .controls > div .btn-group > :not(.btn-check) + a,
 .list-q-block .controls > div .btn-group > :not(.btn-check) + button,
+.test-output-q-header > div .btn-group > :not(.btn-check) + a,
+.test-output-header > div .btn-group > :not(.btn-check) + a,
 .bottom-bar .btn-group > :not(.btn-check) + a,
 .btn-group > :not(.btn-check) + input[type=submit],
 .btn-group > :not(.btn-check) + button,
 .btn-group > .btn-group:not(:first-child) > .btn,
 .list-t-block .controls > div .btn-group > .btn-group:not(:first-child) > a,
 .list-q-block .controls > div .btn-group > .btn-group:not(:first-child) > a,
+.test-output-q-header > div .btn-group > .btn-group:not(:first-child) > a,
+.test-output-header > div .btn-group > .btn-group:not(:first-child) > a,
 .bottom-bar .btn-group > .btn-group:not(:first-child) > a,
 .btn-group > .btn-group:not(:first-child) > input[type=submit],
 .btn-group > .btn-group:not(:first-child) > button {
@@ -3963,7 +4009,7 @@ button {
 .btn-sm + .dropdown-toggle-split, .timer button + .dropdown-toggle-split, .list-t-block .controls > div a + .dropdown-toggle-split,
 .list-t-block .controls > div button + .dropdown-toggle-split,
 .list-q-block .controls > div a + .dropdown-toggle-split,
-.list-q-block .controls > div button + .dropdown-toggle-split, .btn-group-sm > .btn + .dropdown-toggle-split, .bottom-bar .btn-group-sm > a + .dropdown-toggle-split, .btn-group-sm > input[type=submit] + .dropdown-toggle-split,
+.list-q-block .controls > div button + .dropdown-toggle-split, .btn-group-sm > .btn + .dropdown-toggle-split, .test-output-q-header > div .btn-group-sm > a + .dropdown-toggle-split, .test-output-header > div .btn-group-sm > a + .dropdown-toggle-split, .bottom-bar .btn-group-sm > a + .dropdown-toggle-split, .btn-group-sm > input[type=submit] + .dropdown-toggle-split,
 .btn-group-sm > button + .dropdown-toggle-split {
   padding-right: 0.375rem;
   padding-left: 0.375rem;
@@ -3972,7 +4018,7 @@ button {
 .btn-lg + .dropdown-toggle-split, button[type=submit] + .dropdown-toggle-split, .btn-group-lg > .btn + .dropdown-toggle-split, .list-t-block .controls > div .btn-group-lg > a + .dropdown-toggle-split,
 .list-t-block .controls > div .btn-group-lg > button + .dropdown-toggle-split,
 .list-q-block .controls > div .btn-group-lg > a + .dropdown-toggle-split,
-.list-q-block .controls > div .btn-group-lg > button + .dropdown-toggle-split, .bottom-bar .btn-group-lg > a + .dropdown-toggle-split, .btn-group-lg > input[type=submit] + .dropdown-toggle-split,
+.list-q-block .controls > div .btn-group-lg > button + .dropdown-toggle-split, .test-output-q-header > div .btn-group-lg > a + .dropdown-toggle-split, .test-output-header > div .btn-group-lg > a + .dropdown-toggle-split, .bottom-bar .btn-group-lg > a + .dropdown-toggle-split, .btn-group-lg > input[type=submit] + .dropdown-toggle-split,
 .btn-group-lg > button + .dropdown-toggle-split {
   padding-right: 0.75rem;
   padding-left: 0.75rem;
@@ -3986,7 +4032,7 @@ button {
 .btn-group-vertical > .btn, .list-t-block .controls > div .btn-group-vertical > a,
 .list-t-block .controls > div .btn-group-vertical > button,
 .list-q-block .controls > div .btn-group-vertical > a,
-.list-q-block .controls > div .btn-group-vertical > button, .bottom-bar .btn-group-vertical > a, .btn-group-vertical > input[type=submit],
+.list-q-block .controls > div .btn-group-vertical > button, .test-output-q-header > div .btn-group-vertical > a, .test-output-header > div .btn-group-vertical > a, .bottom-bar .btn-group-vertical > a, .btn-group-vertical > input[type=submit],
 .btn-group-vertical > button,
 .btn-group-vertical > .btn-group {
   width: 100%;
@@ -3994,17 +4040,19 @@ button {
 .btn-group-vertical > .btn:not(:first-child), .list-t-block .controls > div .btn-group-vertical > a:not(:first-child),
 .list-t-block .controls > div .btn-group-vertical > button:not(:first-child),
 .list-q-block .controls > div .btn-group-vertical > a:not(:first-child),
-.list-q-block .controls > div .btn-group-vertical > button:not(:first-child), .bottom-bar .btn-group-vertical > a:not(:first-child), .btn-group-vertical > input[type=submit]:not(:first-child),
+.list-q-block .controls > div .btn-group-vertical > button:not(:first-child), .test-output-q-header > div .btn-group-vertical > a:not(:first-child), .test-output-header > div .btn-group-vertical > a:not(:first-child), .bottom-bar .btn-group-vertical > a:not(:first-child), .btn-group-vertical > input[type=submit]:not(:first-child),
 .btn-group-vertical > button:not(:first-child),
 .btn-group-vertical > .btn-group:not(:first-child) {
   margin-top: calc(-1 * var(--bs-border-width));
 }
 .btn-group-vertical > .btn:not(:last-child):not(.dropdown-toggle), .list-t-block .controls > div .btn-group-vertical > a:not(:last-child):not(.dropdown-toggle),
-.list-q-block .controls > div .btn-group-vertical > a:not(:last-child):not(.dropdown-toggle), .bottom-bar .btn-group-vertical > a:not(:last-child):not(.dropdown-toggle), .btn-group-vertical > input[type=submit]:not(:last-child):not(.dropdown-toggle),
+.list-q-block .controls > div .btn-group-vertical > a:not(:last-child):not(.dropdown-toggle), .test-output-q-header > div .btn-group-vertical > a:not(:last-child):not(.dropdown-toggle), .test-output-header > div .btn-group-vertical > a:not(:last-child):not(.dropdown-toggle), .bottom-bar .btn-group-vertical > a:not(:last-child):not(.dropdown-toggle), .btn-group-vertical > input[type=submit]:not(:last-child):not(.dropdown-toggle),
 .btn-group-vertical > button:not(:last-child):not(.dropdown-toggle),
 .btn-group-vertical > .btn-group:not(:last-child) > .btn,
 .list-t-block .controls > div .btn-group-vertical > .btn-group:not(:last-child) > a,
 .list-q-block .controls > div .btn-group-vertical > .btn-group:not(:last-child) > a,
+.test-output-q-header > div .btn-group-vertical > .btn-group:not(:last-child) > a,
+.test-output-header > div .btn-group-vertical > .btn-group:not(:last-child) > a,
 .bottom-bar .btn-group-vertical > .btn-group:not(:last-child) > a,
 .btn-group-vertical > .btn-group:not(:last-child) > input[type=submit],
 .btn-group-vertical > .btn-group:not(:last-child) > button {
@@ -4014,19 +4062,23 @@ button {
 .btn-group-vertical > .btn:nth-child(n+3), .list-t-block .controls > div .btn-group-vertical > a:nth-child(n+3),
 .list-t-block .controls > div .btn-group-vertical > button:nth-child(n+3),
 .list-q-block .controls > div .btn-group-vertical > a:nth-child(n+3),
-.list-q-block .controls > div .btn-group-vertical > button:nth-child(n+3), .bottom-bar .btn-group-vertical > a:nth-child(n+3), .btn-group-vertical > input[type=submit]:nth-child(n+3),
+.list-q-block .controls > div .btn-group-vertical > button:nth-child(n+3), .test-output-q-header > div .btn-group-vertical > a:nth-child(n+3), .test-output-header > div .btn-group-vertical > a:nth-child(n+3), .bottom-bar .btn-group-vertical > a:nth-child(n+3), .btn-group-vertical > input[type=submit]:nth-child(n+3),
 .btn-group-vertical > button:nth-child(n+3),
 .btn-group-vertical > :not(.btn-check) + .btn,
 .list-t-block .controls > div .btn-group-vertical > :not(.btn-check) + a,
 .list-t-block .controls > div .btn-group-vertical > :not(.btn-check) + button,
 .list-q-block .controls > div .btn-group-vertical > :not(.btn-check) + a,
 .list-q-block .controls > div .btn-group-vertical > :not(.btn-check) + button,
+.test-output-q-header > div .btn-group-vertical > :not(.btn-check) + a,
+.test-output-header > div .btn-group-vertical > :not(.btn-check) + a,
 .bottom-bar .btn-group-vertical > :not(.btn-check) + a,
 .btn-group-vertical > :not(.btn-check) + input[type=submit],
 .btn-group-vertical > :not(.btn-check) + button,
 .btn-group-vertical > .btn-group:not(:first-child) > .btn,
 .list-t-block .controls > div .btn-group-vertical > .btn-group:not(:first-child) > a,
 .list-q-block .controls > div .btn-group-vertical > .btn-group:not(:first-child) > a,
+.test-output-q-header > div .btn-group-vertical > .btn-group:not(:first-child) > a,
+.test-output-header > div .btn-group-vertical > .btn-group:not(:first-child) > a,
 .bottom-bar .btn-group-vertical > .btn-group:not(:first-child) > a,
 .btn-group-vertical > .btn-group:not(:first-child) > input[type=submit],
 .btn-group-vertical > .btn-group:not(:first-child) > button {
@@ -5080,7 +5132,7 @@ button {
 .btn .badge, .list-t-block .controls > div a .badge,
 .list-t-block .controls > div button .badge,
 .list-q-block .controls > div a .badge,
-.list-q-block .controls > div button .badge, .bottom-bar a .badge, input[type=submit] .badge,
+.list-q-block .controls > div button .badge, .test-output-q-header > div a .badge, .test-output-header > div a .badge, .bottom-bar a .badge, input[type=submit] .badge,
 button .badge {
   position: relative;
   top: -1px;
@@ -7032,7 +7084,7 @@ button .badge {
 .placeholder.btn::before, .list-t-block .controls > div a.placeholder::before,
 .list-t-block .controls > div button.placeholder::before,
 .list-q-block .controls > div a.placeholder::before,
-.list-q-block .controls > div button.placeholder::before, .bottom-bar a.placeholder::before, input.placeholder[type=submit]::before,
+.list-q-block .controls > div button.placeholder::before, .test-output-q-header > div a.placeholder::before, .test-output-header > div a.placeholder::before, .bottom-bar a.placeholder::before, input.placeholder[type=submit]::before,
 button.placeholder::before {
   display: inline-block;
   content: "";
@@ -7537,7 +7589,8 @@ button.placeholder::before {
 
 .d-inline-block, .list-t-block .controls > div,
 .list-q-block .controls > div, .list-t-block .list-t-testers > div,
-.list-q-block .list-t-testers > div, .version-cont .version-header > div, .version-cont-locked .version-header > div {
+.list-q-block .list-t-testers > div, .list-t-block .list-t-header > div,
+.list-q-block .list-t-header > div, .version-cont .version-header > div, .version-cont-locked .version-header > div, .bottom-bar .stats > * {
   display: inline-block !important;
 }
 
@@ -7566,7 +7619,7 @@ button.placeholder::before {
 }
 
 .d-flex, .list-t-block,
-.list-q-block, .question-preview-container {
+.list-q-block, .test-output-q-header, .test-output-header, .question-preview-container {
   display: flex !important;
 }
 
@@ -7993,7 +8046,7 @@ button.placeholder::before {
   justify-content: center !important;
 }
 
-.justify-content-between {
+.justify-content-between, .test-output-q-header, .test-output-header {
   justify-content: space-between !important;
 }
 
@@ -8248,7 +8301,8 @@ button.placeholder::before {
   margin-right: 1rem !important;
 }
 
-.me-4 {
+.me-4, .list-t-block .list-t-header .list-t-name,
+.list-q-block .list-t-header .list-t-name, .bottom-bar .stats > * {
   margin-right: 1.5rem !important;
 }
 
@@ -8264,7 +8318,7 @@ button.placeholder::before {
   margin-bottom: 0 !important;
 }
 
-.mb-1 {
+.mb-1, .test-output-q-header > div, .test-output-header > div {
   margin-bottom: 0.25rem !important;
 }
 
@@ -12188,9 +12242,25 @@ button.placeholder::before {
     display: none !important;
   }
 }
+/* Normal (upright) variable font */
+@font-face {
+  font-family: "OpenSansVar";
+  src: url("/my_questions/static/my_questions/fonts/OpenSans-VariableFont_wdth,wght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-stretch: 75% 125%;
+  font-style: normal;
+}
+/* Italic variable font */
+@font-face {
+  font-family: "OpenSansVar";
+  src: url("/my_questions/static/my_questions/fonts/OpenSans-Italic-VariableFont_wdth,wght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-stretch: 75% 125%;
+  font-style: italic;
+}
 body {
   font-size: 14px;
-  font-family: "PT Sans", sans-serif;
+  font-family: "OpenSansVar", sans-serif;
   font-weight: 400;
   font-style: normal;
 }
@@ -12201,6 +12271,8 @@ h2,
 h3,
 .h3,
 h4,
+.list-t-block .list-t-header .list-t-tournament,
+.list-q-block .list-t-header .list-t-tournament,
 .h4,
 h5,
 .h5,
@@ -12212,7 +12284,7 @@ h6,
 h1, .h1,
 h2,
 .h2 {
-  font-family: "PT Sans", sans-serif;
+  font-family: "OpenSansVar", sans-serif;
   /*font-family: "PT Serif", sans-serif;*/
   font-weight: 700;
   font-style: normal;
@@ -12247,6 +12319,7 @@ label {
 }
 
 .razdatka {
+  min-height: 100px;
   max-width: 250px;
 }
 
@@ -12262,6 +12335,10 @@ label {
   max-height: 100px;
 }
 
+.list-t-block .list-t-header .list-t-tournament,
+.list-q-block .list-t-header .list-t-tournament {
+  font-weight: normal;
+}
 .list-t-block .list-t-testers,
 .list-q-block .list-t-testers {
   text-decoration: none;
@@ -12306,6 +12383,14 @@ body .ui-widget.ui-widget-content li.ui-state-default.ui-state-active a {
 
 .question-widget {
   overflow: auto;
+}
+.question-widget .accordion > *:nth-child(-n+2) {
+  width: 49%;
+  display: inline-block;
+}
+.question-widget .razdatka {
+  max-width: 150px;
+  min-height: 50px;
 }
 .question-widget .question-preview-container .question-preview {
   font-size: 0.75rem;
@@ -12358,6 +12443,16 @@ body .ui-widget.ui-widget-content li.ui-state-default.ui-state-active a {
 }
 .timer #progress-circle.warning {
   stroke: orange !important;
+}
+
+.number-snippet .number-in-snippet {
+  font-size: 1.5rem;
+  font-weight: bold;
+  line-height: 1.25rem;
+}
+
+.number-snippet .label-in-snippet {
+  text-wrap-style: pretty;
 }
 
 /*# sourceMappingURL=style.css.map */

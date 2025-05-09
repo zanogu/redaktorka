@@ -10,7 +10,7 @@
     {% csrf_token %}
     {{ add_question_form }}
     {{ add_question_form.media }}
-    <input type="submit" value="Submit">
+    <button type="submit" value="Submit">{{control_element_names.create}}</button>
 </form>
 
 {% endblock %}

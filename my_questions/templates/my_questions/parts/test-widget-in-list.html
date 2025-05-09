@@ -2,9 +2,15 @@
 
 <div data-test="{{test|model_to_dict_filter}}" class="list-t-block">
         <div class="info">
-
-          <div class="list-t-name">
-            <h4>{{test.name}}</h4>
+          <div class="list-t-header">
+            <div class="list-t-name">
+              <h4>{{test.name}}</h4>
+            </div>
+            <div class="list-t-tournament">
+              {% for t in test.tournament.all %}
+                <div>{{t}}</div>
+              {% endfor %}
+            </div>
           </div>
           <div class="list-t-description">
             {{test.description}}

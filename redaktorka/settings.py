@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-92-=g=#=3x+o!$_lr3p%v^g4-$%5#d-(t%qx4cm57%89t634wn
 DEBUG = True
 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.0.202']
 
 
 # Application definition
@@ -138,15 +138,45 @@ TINYMCE_DEFAULT_CONFIG = {
     "height": "320px",
     "width": "960px",
     "menubar": "file edit view insert format tools table help",
-    "plugins": "advlist autolink lists link image charmap print preview anchor searchreplace visualblocks code "
+    "plugins": "advlist autosave autolink lists link image charmap print preview anchor searchreplace visualblocks code "
     "fullscreen insertdatetime media table paste code help wordcount spellchecker",
-    "toolbar": "undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft "
+    "toolbar": "undo redo | bold italic underline strikethrough | insertAccent | fontselect fontsizeselect formatselect | alignleft "
     "aligncenter alignright alignjustify | outdent indent |  numlist bullist checklist | forecolor "
     "backcolor casechange permanentpen formatpainter removeformat | pagebreak | charmap emoticons | "
     "fullscreen  preview save print | insertfile image media pageembed template link anchor codesample | "
     "a11ycheck ltr rtl | showcomments addcomment code",
     "custom_undo_redo_levels": 50,
     "language": "ru_RU",
+    "font_formats": 'Open Sans=OpenSansVar;Arial=arial,sans-serif;Times New Roman=times new roman,times',
+    "content_style":
+        """
+        @font-face {
+          font-family: 'OpenSansVar';
+          src: url('/my_questions/static/my_questions/fonts/OpenSans-VariableFont_wdth,wght.ttf') format('truetype');
+          font-weight: 100 900;
+          font-stretch: 75% 125%;
+        }
+        body {
+          font-family: 'OpenSansVar', sans-serif;
+          font-feature-settings: "mark";
+          font-size: 14px;
+          line-height: 1.6;
+        }""",
+    "charmap_append": [
+        [0x2600, 'sun'],
+        [0x2601, 'cloud'],
+        [0x0300, 'grave'],
+        [0x0301, 'acute'],
+      ],
+    "setup": """function(editor) {
+        editor.ui.registry.addButton('insertAccent', {
+          text: 'УД',
+          tooltip: 'Вставить ударение (U+0301)',
+          onAction: function() {
+            editor.insertContent('\u0301'); // вставка ударения
+          }
+        });
+        }""",
     "file_picker_callback": """function (cb, value, meta) {
             var input = document.createElement("input");
             input.setAttribute("type", "file");

@@ -13,6 +13,7 @@ class Question(models.Model):
     created = models.DateTimeField()
     last_edited = models.DateTimeField()
     user = models.ManyToManyField(User)
+    author = models.CharField(default='')
 
     @property
     def related_committed_tests(self) -> List:
@@ -25,7 +26,7 @@ class Question(models.Model):
 
 class Version(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    razdatka = models.ImageField(upload_to = "my_questions/static/my_questions/uploads/",blank=True)
+    razdatka = models.FileField(upload_to = "my_questions/static/my_questions/uploads/",blank=True)
     text = models.TextField()
     answer = EncryptedCharField(blank=True)
     also_answer = EncryptedCharField(blank=True)
@@ -48,6 +49,34 @@ class Version(models.Model):
         ordering = ["-created"]
 
 
+class Tournament(models.Model):
+    tournament_rating_id = models.IntegerField(null=True, blank=True)
+    name = models.CharField(max_length=400)
+    date_start = models.DateTimeField(null=True, blank=True)
+    date_end = models.DateTimeField(null=True, blank=True)
+    id_season = models.IntegerField(null=True, blank=True)
+    type_id = models.IntegerField(null=True, blank=True)
+    type_name = models.CharField(null=True, blank=True)
+    question_quantity = models.JSONField(default={"1":12, "2": 12, "3": 12})
+    truedl = models.FloatField(default = 0)
+    user = models.ManyToManyField(User)
+
+    @property
+    def question_quantity_general(self) -> int:
+        return sum([v for v in self.question_quantity.values()])
+
+    @property
+    def tours_quantity(self) -> int:
+        return len(self.question_quantity.keys())
+
+    @property
+    def tour_length(self) -> int:
+        return list(self.question_quantity.values())[0]
+
+    def __str__(self):
+        return f"{self.tournament_rating_id}: {self.name}"
+
+
 class Test(models.Model):
     date = models.DateField(blank=True)
     name = models.CharField(blank=True)
@@ -58,6 +87,7 @@ class Test(models.Model):
     editor_comments = models.TextField(blank=True, null = True)
     committed = models.BooleanField(default=False)
     committed_datetime = models.DateTimeField(blank=True, null = True)
+    tournament = models.ManyToManyField(Tournament, blank=True, null = True, related_name="tests")
 
     def __str__(self):
         return str(model_to_dict(self))
@@ -99,7 +129,6 @@ class Tester(models.Model):
     rating_id = models.IntegerField(blank=True, null=True)
     test = models.ManyToManyField(Test, blank=True, related_name="testers")
     user = models.ManyToManyField(User)
-
 
     @property
     def name_surname(self) -> str:

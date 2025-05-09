@@ -1,10 +1,16 @@
 {% load my_questions_extras %}
 
-<div data-question="{{q.question.id}}" class="question-widget">
+<div data-question="{{q.id}}" class="question-widget">
   {% include "my_questions/parts/question-preview.html" with q=q %}
+
   <input type="hidden" form="{{form}}" id="question" name="question" value="{{q.id}}">
 
   <div class="accordion" data-dialog="{{q.id}}" title="Basic dialog">
+    <div class="controls">
+      <div>
+        <a href="{% url 'my_questions:question' question_id=q.id %}" target="_blank">Редактировать</a>
+      </div>
+    </div>
     <h3>Версии</h3>
     <div>
       {% for v in q.version_set.all %}

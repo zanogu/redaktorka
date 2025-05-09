@@ -80,15 +80,7 @@
   font-size: 0.75rem;
 }
 
-.number-snippet .number-in-snippet{
-  font-family: "PT Sans Narrow", sans-serif;
-  font-size: 2rem;
-  font-weight: bold;
-}
 
-.number-snippet .label-in-snippet{
-  text-wrap-style: pretty;
-}
 
 .standings-controls input{
   border: 0px black dotted;

@@ -31,10 +31,21 @@ class EditQuestionForm(ModelForm):
                   "sources",
                   "editor_comments"]
 
+class EditTestForm(ModelForm):
+    class Meta:
+        model = Test
+        exclude = ["user"]
+        widgets = {'tournament': forms.CheckboxSelectMultiple()}
+
 class EditTesterForm(ModelForm):
     class Meta:
         model = Tester
         exclude = ["test", "user"]
+
+class EditTournamentForm(ModelForm):
+    class Meta:
+        model = Tournament
+        exclude = ["user"]
 
 class EditVersionComment(ModelForm):
     pk = forms.IntegerField()

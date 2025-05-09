@@ -11,17 +11,29 @@
 
 <div class="container-fluid">
   <div class="row">
-    <div class="col-8">
-      <h2>Тест {{test.name}}</h2>
+    <div class="col-9">
+      <div class="test-output-header">
+        <div><h2>{{terms.test}} {{test.name}}</h2></div>
+        <div><a href="{% url 'my_questions:edit_test_view' test.id %}">{{terms.edit}}</a> </div>
+      </div>
     </div>
   </div>
   <div class="row">
-    <div class="col-9">
+    <div class="col-9 test-output-cont" data-test="{{test.id}}">
       {% for q in test_dict %}
-      <div class="test-output-q">
-        <h4 class="test-output-q-header">
-          {{question_part_names.question}} {{ forloop.counter }}
-        </h4>
+      <div class="test-output-q" data-question="{{q.question.0}}">
+        <div class="test-output-q-header" >
+          <div>
+            <h4>{{ question_part_names.question }} {{ forloop.counter }}</h4>
+          </div>
+          <div>
+            <div class="move-controls" style="display:inline-block; margin-left: 10px;">
+              <button class="move-up">↑</button>
+              <button class="move-down">↓</button>
+            </div>
+            <a href="{% url 'my_questions:question' q.question.0 %}" target="_blank">{{terms.edit}}</a>
+          </div>
+        </div>
         {% if q.razdatka.0 != "" %}
           <p>
             <span class="test-output-q-subheader"> {{question_part_names.razdatka}}: </span>
@@ -90,6 +102,10 @@
     </div>
   </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
 
 <script>
   $( function() {
@@ -144,7 +160,68 @@
         }
       });
     });
+
+    // Up-down arrows
+
+    const feedback = $('<div id="feedback" style="margin-top: 10px;"></div>').insertAfter('.test-output-cont');
+
+    function updateButtons($container) {
+      const $items = $container.find('.test-output-q');
+      $items.find('.move-up, .move-down').prop('disabled', false);
+      $items.first().find('.move-up').prop('disabled', true);
+      $items.last().find('.move-down').prop('disabled', true);
+    }
+
+    function sendOrder($container) {
+      const testId = $container.data('test');
+      const order = $container.find('.test-output-q').map(function () {
+        return $(this).data('question');
+      }).get();
+
+      $.post('{% url "my_questions:update_question_order_backend" %}', { "test": testId, "order": order, csrfmiddlewaretoken: '{{ csrf_token }}' })
+        .done(() => {
+          feedback.text('✅ Order updated successfully!').css('color', 'green').fadeIn().delay(1000).fadeOut();
+        })
+        .fail(() => {
+          feedback.text('❌ Failed to update order.').css('color', 'red').fadeIn().delay(2000).fadeOut();
+        });
+    }
+
+    $('.test-output-cont').on('click', '.move-up, .move-down', function () {
+      const $question = $(this).closest('.test-output-q');
+      const $container = $question.closest('.test-output-cont');
+
+      if ($(this).hasClass('move-up')) {
+        const $prev = $question.prev('.test-output-q');
+        if ($prev.length) {
+          $question.slideUp(200, function () {
+            $question.insertBefore($prev).slideDown(200);
+            updateButtons($container);
+            sendOrder($container);
+          });
+        }
+      } else if ($(this).hasClass('move-down')) {
+        const $next = $question.next('.test-output-q');
+        if ($next.length) {
+          $question.slideUp(200, function () {
+            $question.insertAfter($next).slideDown(200);
+            updateButtons($container);
+            sendOrder($container);
+          });
+        }
+      }
+    });
+
+    // Initial setup
+    $('.test-output-cont').each(function () {
+      updateButtons($(this));
+    });
+
+
+
+
   });
+
 </script>
 {% endblock %}
 

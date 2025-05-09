@@ -29,7 +29,6 @@
     {{ question_form_set.management_form }}
     <div class="question-editor-header">
       <input type="hidden" id="question" name="question" value="{{my_question.id}}">
-      <button form="versions-form" type="submit" value="Submit">{{control_element_names.submit}}</button>
     </div>
 
 
@@ -101,4 +100,10 @@
 </form>
 
 </div>
+
+
+{% endblock %}
+
+{% block bottom_bar %}
+    {% include "my_questions/parts/bottom-bar-edit-question.html" with form="versions-form" %}
 {% endblock %}

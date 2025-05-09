@@ -1,0 +1,41 @@
+{% extends "my_questions/parts/bottom-bar-wrapper.html"%}
+
+{% block bottom_bar_contents %}
+<div class="container-fluid b-bar-q-list-cont">
+  <div class="left-aligned-part">
+    <button form="{{form}}" type="submit" value="Submit">{{control_element_names.submit}}</button>
+  </div>
+  <div class="one-more-part">
+    <div class="stats">
+      <div id="questions-in-test">
+        {% include "my_questions/parts/number-snippet.html" with label=terms.questions number=0 %}
+      </div>
+      <div id="testers-in-test">
+        {% include "my_questions/parts/number-snippet.html" with label=terms.testers number=0 %}
+      </div>
+    </div>
+  </div>
+  <div class="right-aligned-part">
+  </div>
+</div>
+<script>
+  $( document ).ready(function() {
+
+    $("#questions-in-test .number-in-snippet").text($("#question-test-basket").children().length)
+    $("#testers-in-test .number-in-snippet").text($("#tester-test-basket").children().length)
+
+
+    $("#question-test-basket, #question-basket").on("questionAmountChanged", function() {
+      let amount = $("#question-test-basket").children().length
+      $("#questions-in-test .number-in-snippet").text(amount)
+    });
+
+    $("#tester-test-basket, #tester-basket").on("questionAmountChanged", function() {
+      let amount = $("#tester-test-basket").children().length
+      $("#testers-in-test .number-in-snippet").text(amount)
+    });
+
+  });
+</script>
+
+{% endblock %}

@@ -1,10 +1,29 @@
 @import '../my_questions/lib/bootstrap/scss/bootstrap.scss';
-@import url('https://fonts.googleapis.com/css2?family=PT+Sans+Narrow:wght@400;700&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=PT+Sans+Narrow:wght@400;700&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+/* Normal (upright) variable font */
+@font-face {
+    font-family: 'OpenSansVar';
+    src: url('/my_questions/static/my_questions/fonts/OpenSans-VariableFont_wdth,wght.ttf') format('truetype');
+    font-weight: 100 900;
+    font-stretch: 75% 125%;
+    font-style: normal;
+  }
+  
+  /* Italic variable font */
+  @font-face {
+    font-family: 'OpenSansVar';
+    src: url('/my_questions/static/my_questions/fonts/OpenSans-Italic-VariableFont_wdth,wght.ttf') format('truetype');
+    font-weight: 100 900;
+    font-stretch: 75% 125%;
+    font-style: italic;
+  }
+
 
 body {
     @extend .bg-body-secondary;
     font-size: 14px;
-    font-family: "PT Sans", sans-serif;
+    font-family: "OpenSansVar", sans-serif;
     font-weight: 400;
     font-style: normal;
 }
@@ -20,7 +39,7 @@ h6 {
 
 h1,
 h2 {
-    font-family: "PT Sans", sans-serif;
+    font-family: "OpenSansVar", sans-serif;
     /*font-family: "PT Serif", sans-serif;*/
     font-weight: 700;
     font-style: normal;
@@ -54,6 +73,11 @@ input[type="text"], input[type="password"], input[type="file"], input[type="numb
     @extend .form-control;
 }
 
+input[type="checkbox"]{
+    @extend .form-check-input;
+}
+
+
 label{
     @extend .form-label;
     @extend .mt-1;
@@ -75,6 +99,7 @@ select {
 }
 
 .razdatka {
+    min-height: 100px;
     max-width: 250px;
 }
 
@@ -95,6 +120,13 @@ select {
     @extend .navbar;
     @extend .fixed-bottom;
     @extend .bg-dark-subtle;
+
+    .stats{
+        & > *{
+            @extend .d-inline-block;
+            @extend .me-4;
+        }
+    }
 
     .left-aligned-part{
         @extend .navbar-brand;
@@ -156,12 +188,38 @@ select {
 
 // TEST
 
+.test-output-q-header, .test-output-header{
+    @extend .d-flex;
+    @extend .justify-content-between;
+    & > div{
+        @extend .mb-1;
+        a{
+            @extend .btn;
+            
+            @extend .btn-dark;
+        }
+    }
+}
+
 .list-t-block,
 .list-q-block {
     @extend .d-flex;
     @extend .p-3;
     @extend .mb-2;
     @extend .bg-white;
+
+    .list-t-header{
+        & > div{
+            @extend .d-inline-block;
+        }
+        .list-t-name{
+            @extend .me-4;
+        }
+        .list-t-tournament{
+            @extend h4;
+            font-weight: normal;
+        }
+    }
 
     .list-t-testers {
         text-decoration: none;
@@ -245,6 +303,18 @@ body .ui-widget.ui-widget-content{
     @extend .bg-white;
     @extend .mb-2;
     overflow: auto;
+
+    .accordion{
+        & > *:nth-child(-n + 2){
+            width: 49%;
+            display: inline-block;
+        }
+    }
+
+    .razdatka{
+        max-width: 150px;
+        min-height: 50px;
+    }
 
     .question-preview-container{
         @extend .m-2;
@@ -340,5 +410,17 @@ body .ui-widget.ui-widget-content{
       #progress-circle.warning {
         stroke: orange !important;
       }
+}
+
+// Number snippets
+
+.number-snippet .number-in-snippet{
+    font-size: 1.5rem;
+    font-weight: bold;
+    line-height: 1.25rem;
+  }
+  
+.number-snippet .label-in-snippet{
+    text-wrap-style: pretty;
 }
 

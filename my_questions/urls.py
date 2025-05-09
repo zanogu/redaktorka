@@ -28,8 +28,11 @@ urlpatterns = [
     path('save_comment_backend/', views.save_comment_backend, name='save_comment_backend'),
     path('save_rating_backend/', views.save_rating_backend, name='save_rating_backend'),
     path('save_is_answered_backend/', views.save_is_answered_backend, name='save_is_answered_backend'),
+    path('update_question_order_backend/', views.update_question_order_backend, name='update_question_order_backend'),
 
     path('testers/', views.testers_view, name='testers_view'),
     path('edit_tester/', views.edit_tester_backend, name='edit_tester_backend'),
-    # Registration page
+
+    path('tournaments/', views.tournaments_view, name='tournaments_view'),
+    path('edit_tournament_backend/', views.edit_tournament_backend, name='edit_tournament_backend'),
 ]

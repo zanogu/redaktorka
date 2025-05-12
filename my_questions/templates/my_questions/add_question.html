@@ -10,6 +10,9 @@
     {% csrf_token %}
     {{ add_question_form }}
     {{ add_question_form.media }}
+    <label for="author">{{question_part_names.author}}</label>
+    <input type="text" name="author" id="author" value="">
+
     <button type="submit" value="Submit">{{control_element_names.create}}</button>
 </form>
 

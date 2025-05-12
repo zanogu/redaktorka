@@ -111,7 +111,7 @@ def add_question(request):
     print(form)
     if form.is_valid():
         with (transaction.atomic()):
-            q = Question(created = timezone.now(), last_edited = timezone.now() )
+            q = Question(created = timezone.now(), last_edited = timezone.now(), author = request.POST.get("author") )
             q.save()
             q.user.set([request.user])
             ver = form.save(commit=False)
@@ -191,14 +191,20 @@ def edit_question_backend(request):
     my_question = get_object_or_404(Question, pk = int(request.POST.get("question")))
     print("valid", formset.is_valid())
     if formset.is_valid():
-        for form in formset:
-            if form.cleaned_data !={}:
-                instance = form.save(commit=False)
+        with (transaction.atomic()):
+            if request.POST.get("author") != '':
+                my_question.author = request.POST.get("author")
+            else:
+                my_question.author = f"{request.user.first_name} {request.user.last_name}"
+            my_question.save()
+            for form in formset:
+                if form.cleaned_data !={}:
+                    instance = form.save(commit=False)
 
-                if instance.created is None:
-                    instance.created = timezone.now()
-                instance.question = my_question
-                instance.save()
+                    if instance.created is None:
+                        instance.created = timezone.now()
+                    instance.question = my_question
+                    instance.save()
 
     return redirect('my_questions:question', question_id = my_question.id)
 
@@ -376,11 +382,8 @@ def edit_test_view(request, test_id: int):
 @login_required
 def edit_test_backend(request):
 
-    print(request)
-
     if request.method == 'POST':
         request_post = dict(request.POST)
-        print(request_post)
 
         with (transaction.atomic()):
             if request.POST.get("test-id") is not None:

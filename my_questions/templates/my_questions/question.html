@@ -23,12 +23,16 @@
     </form>
   {% endfor %}
 
+
   <form enctype="multipart/form-data" id="versions-form" method="post" action="{% url 'my_questions:edit_question_backend' %}">
 
     {% csrf_token %}
+
     {{ question_form_set.management_form }}
     <div class="question-editor-header">
       <input type="hidden" id="question" name="question" value="{{my_question.id}}">
+      <label for="author"> {{question_part_names.author}}</label>
+      <input type="text" name="author" id="author" value="{{my_question.author}}">
     </div>
 
 

@@ -24,6 +24,7 @@ QUESTION_PART_NAMES = {
     'not_answer': "Незачёт",
     'commentary': "Комментарий",
     'sources': "Источники",
+    'author': "Автор(ы)",
     'created': "Создан",
     'test_description': "Описание теста",
     'test_title': "Название теста",

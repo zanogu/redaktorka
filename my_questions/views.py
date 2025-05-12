@@ -20,7 +20,6 @@ from pprint import pprint
 
 def index(request):
     return HttpResponse("Привет юзернейм, ты в редакторке")
-# TODO rewrite
 
 # LOGIN
 

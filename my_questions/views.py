@@ -19,7 +19,7 @@ from pprint import pprint
 
 
 def index(request):
-    return HttpResponse("Привет юзернейм, ты в редакторке")
+    return HttpResponse("Привет юзернейм, ты в редакторкеr")
 
 # LOGIN
 

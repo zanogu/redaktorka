@@ -30,14 +30,14 @@
               <form action="{% url 'my_questions:test_delete_backend' %}" method="post">
                     {% csrf_token %}
                     <input type="hidden"  name="test_id" value="{{test.id}}">
-                    <button type="submit" name="action" value="approve"> Удалить </button>
+                    <button class="delete" type="submit" name="action" value="approve"> <i class="bi bi-trash"></i> </button>
               </form>
             {% else %}
               <p> Этот тест был проведён {{test.committed_datetime}} </p>
             {% endif %}
           </div>
           <div class="">
-            <a href="{% url 'my_questions:edit_test_view' test_id=test.id %}"> Редактировать </a>
+            <a href="{% url 'my_questions:edit_test_view' test_id=test.id %}"> <i class="bi bi-pencil"></i> </a>
           </div>
           <div class="">
             <a href="{% url 'my_questions:show_test_view' test_id=test.id %}"> Пакет </a>
